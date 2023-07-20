@@ -42,8 +42,6 @@ void setup()
     #endif
   #endif
 
-  // Serial.println("ORI*CORDIAN MIDI DEVICE");
-  // Serial.println("Setting up devices");
   pinMode(LED1, OUTPUT);
   digitalWrite(LED1, 1);
   pinMode(CAL_BTN, INPUT);   // button 1

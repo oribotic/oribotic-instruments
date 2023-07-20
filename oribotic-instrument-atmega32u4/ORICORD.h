@@ -66,7 +66,6 @@ extern struct orikey orikeys[];
 // };
 
 extern uint8_t mode;  // = 6;
-//extern byte rootNote;  // = 60; // major Cs
 extern byte activebutton;  // = 0;
 extern bool continuousMode;
 

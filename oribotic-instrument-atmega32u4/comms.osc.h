@@ -20,6 +20,10 @@
   #include "instrument_K48.h"
 #endif
 
+#if ORIGAMI==SUKI
+  #include "instrument_S12.h"
+#endif
+
 // --------------------------------------------------------------------    FUNCTION PROTOTYPES
 
 void rxOSC();

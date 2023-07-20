@@ -18,6 +18,10 @@
 #if ORIGAMI==KRESLING
     #include "instrument_K48.h"
 #endif
+#if ORIGAMI==SUKI
+  #include "instrument_S12.h"
+#endif
+
 
 #define ARR_LEN(x) (sizeof(x) / sizeof(x[0]))
 
@@ -124,11 +128,6 @@ void play(uint8_t key)
     {
     case 0:
       // off
-      // sprintf(msg_str, "/d/%d", key);
-      // arg_state = 0;
-      // arg_note = note;
-      
-      // arg_role = role;
       if (state != 0)
       {
         send("d", key, note, 0);
@@ -137,14 +136,9 @@ void play(uint8_t key)
       break;
     case 1:
       // hard
-      // sprintf(msg_str, "/d/%d", key);
-      // arg_state = 1;
-      // arg_note = note;
-      // arg_role = role;
       if (state != 1)
       {
         send("d", key, note, 1);
-        //sendOSC(msg_str, arg_state, arg_note);
       } // send only on toggle
       break;
     case 2:
@@ -152,11 +146,6 @@ void play(uint8_t key)
       if (state != 2)
       {
         // send digital note ON if this is the first setting of soft touch
-        // sprintf(msg_str, "/d/%d", key);
-        // arg_state = 1;
-        // arg_note = note;
-        // // arg_role = role;
-        // sendOSC(msg_str, arg_state, arg_note);
         send("d", key, note, 1);
         //arg_note = 3333;
       }
@@ -188,17 +177,10 @@ void play(uint8_t key)
       if (state != 3)
       {
         // send digital note OFF if this is the first setting of BEND
-        // sprintf(msg_str, "/d/%d", key);
-        // arg_state = 0;
-        // arg_note = key;
-        
-        // sendOSC(msg_str, arg_state, key);
-        // arg_note = 3333;
 
         send("d", key, note, 0);
       }
       // bendHI <> bendLO
-      // sprintf(msg_str, "/b/%d", key);
 
       // normalise the key output value between bendLO and bendHI
       if (filtered < orikeys[key].bendLO)
@@ -213,7 +195,6 @@ void play(uint8_t key)
       #endif
       if (filtered != last)
       {
-        //sendOSC(msg_str, arg_state, arg_note); // send every time
         send("b", key, note, arg_state);
       }
       break;
@@ -227,7 +208,6 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state )
 {
   char msg_str[12];
   sprintf(msg_str, "/%s/%d", channel, key);
-  //Serial.println(msg_str);
   // /d/1 0 68
   sendOSC(msg_str, state, note);
 }
@@ -258,36 +238,51 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
       if (state==1)
       {
         noteOn(midi_channel, key, attack_velocity);
-        debugMidi("hard on:", midi_channel, key, attack_velocity );
+        if (DEBUG_LEVEL > 1)
+        {
+          debugMidi("hard on:", midi_channel, key, attack_velocity );
+        }
       } 
       if (state==0)
       {
         noteOff(midi_channel, key, release_velocity);
-        debugMidi("hard off:", midi_channel, key, attack_velocity );
+        if (DEBUG_LEVEL > 1)
+        {
+          debugMidi("hard off:", midi_channel, key, attack_velocity );
+        }
       }
       break;
     case 'b':
       controlChange(midi_channel, key, state);
-      // if (key == 0)
-      // {
-      //   debugMidi("bend ctl:", midi_channel, key, state );
-      // }
+      if (DEBUG_LEVEL > 2)
+      {
+        debugMidi("bend ctl:", midi_channel, key, state );
+      }
       break;
     case 't':
       uint8_t touchkey = key + PANELCOUNT;
       if (state==1)
       {
-        debugMidi("touch on:", midi_channel, touchkey, attack_velocity );
+        if (DEBUG_LEVEL > 1)
+        {
+          debugMidi("touch on:", midi_channel, touchkey, attack_velocity );
+        }
         noteOn(midi_channel, key + PANELCOUNT, attack_velocity);
       } 
       if (state==0)
       {
-        debugMidi("touch off:", midi_channel, touchkey, release_velocity );
+        if (DEBUG_LEVEL > 1)
+        {
+          debugMidi("touch off:", midi_channel, touchkey, release_velocity );
+        }
         noteOff(midi_channel, key + PANELCOUNT, release_velocity);
       }
       break;
     case 's':
-      //debugMidi("soft clt:", midi_channel, key, state );
+      if (DEBUG_LEVEL > 2)
+      {
+        debugMidi("bend ctl:", midi_channel, key, state );
+      }
       controlChange(midi_channel, key, state);
       break;
   }
