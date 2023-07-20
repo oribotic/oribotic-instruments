@@ -1,0 +1,6 @@
+{
+    "sketch": "oricordian-yoshi8P-2023-07-14.ino",
+    "board": "arduino:avr:micro",
+    "port": "/dev/tty.usbmodem2101",
+    "programmer": "avrisp"
+}
