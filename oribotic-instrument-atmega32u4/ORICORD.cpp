@@ -936,6 +936,7 @@ void setupMPR()
     // loop through panelgoups
     uint8_t panelCount = ARR_LEN(panelgroups);
 
+
     for (g = 0; g < panelCount; g++)
     {
       // loop through each byte in pattern
@@ -950,30 +951,29 @@ void setupMPR()
         // char txt[16] = { '\0' };
         // snprintf(txt, sizeof(txt), "g=%d p=%d\n", g, p);
         // Serial.print(txt);
-        if (panelgroups[g].pattern[p] != 0) // skip if zero
+        if (panelgroups[g].pattern[p] == 0) continue;// skip if zero
+
+        // each column in the oricordion has 8 electrodes
+        // so the bit pattern of 6 x 8 = 48, describes the electrode values that make up the pattenrn
+        for (bit = 0; bit < 8; bit++)
         {
-          // each column in the oricordion has 8 electrodes
-          // so the bit pattern of 6 x 8 = 48, describes the electrode values that make up the pattenrn
-          for (bit = 0; bit < 8; bit++)
+          if (bitRead(panelgroups[g].pattern[p], bit))
           {
-            if (bitRead(panelgroups[g].pattern[p], bit))
+            activebits++;
+            electrode = (p * 8) + bit;
+            last_pre_normal = orikeys[electrode].last;
+            if (orikeys[electrode].last < orikeys[electrode].bendLO)
             {
-              activebits++;
-              electrode = (p * 8) + bit;
-              last_pre_normal = orikeys[electrode].last;
-              if (orikeys[electrode].last < orikeys[electrode].bendLO)
-              {
-                last_pre_normal = orikeys[electrode].bendLO;
-              }
-              if (orikeys[electrode].last > orikeys[electrode].bendHI)
-              {
-                last_pre_normal = orikeys[electrode].bendHI;
-              }
-              normalised = map(last_pre_normal, orikeys[electrode].bendLO, orikeys[electrode].bendHI, 0, 254);
-              normalised = bendLinear[(int)normalised];
-              sum += normalised;
-              // the bit array shows the panel/key number
+              last_pre_normal = orikeys[electrode].bendLO;
             }
+            if (orikeys[electrode].last > orikeys[electrode].bendHI)
+            {
+              last_pre_normal = orikeys[electrode].bendHI;
+            }
+            normalised = map(last_pre_normal, orikeys[electrode].bendLO, orikeys[electrode].bendHI, 0, 254);
+            normalised = bendLinear[(int)normalised];
+            sum += normalised;
+            // the bit array shows the panel/key number
           }
           //  Serial.println();
         }

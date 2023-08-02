@@ -189,14 +189,14 @@
     // 00110011 = 51
 
     struct panelgroup panelgroups[8] = {
-        {.title = "tlt0", .value = 0, .pattern = {255, 0, 0, 0, 0, 0}},
-        {.title = "tlt1", .value = 0, .pattern = {0, 255, 0, 0, 0, 0}},
-        {.title = "tlt2", .value = 0, .pattern = {0, 0, 255, 0, 0, 0}},
-        {.title = "tlt3", .value = 0, .pattern = {0, 0, 0, 255, 0, 0}},
-        {.title = "tlt4", .value = 0, .pattern = {0, 0, 0, 0, 255, 0}},
-        {.title = "tlt5", .value = 0, .pattern = {0, 0, 0, 0, 0, 255}},
-        {.title = "twsL", .value = 0, .pattern = {204, 204, 204, 204, 204, 204}},
-        {.title = "twsR", .value = 0, .pattern = {51, 51, 51, 51, 51, 51}}
+        {.title = "tlt0", .value = 0, .pattern = {0b11111111, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000}},
+        {.title = "tlt1", .value = 0, .pattern = {0b00000000, 0b11111111, 0b00000000, 0b00000000, 0b00000000, 0b00000000}},
+        {.title = "tlt2", .value = 0, .pattern = {0b00000000, 0b00000000, 0b11111111, 0b00000000, 0b00000000, 0b00000000}},
+        {.title = "tlt3", .value = 0, .pattern = {0b00000000, 0b00000000, 0b00000000, 0b11111111, 0b00000000, 0b00000000}},
+        {.title = "tlt4", .value = 0, .pattern = {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b11111111, 0b00000000}},
+        {.title = "tlt5", .value = 0, .pattern = {0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b11111111}},
+        {.title = "twsL", .value = 0, .pattern = {0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100}},
+        {.title = "twsR", .value = 0, .pattern = {0b00110011, 0b00110011, 0b00110011, 0b00110011, 0b00110011, 0b00110011}},
     };
     #endif  // ------------------------- PANELGROUPS
 
