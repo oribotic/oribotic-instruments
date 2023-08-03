@@ -44,7 +44,7 @@ void dispatchGetNotes(OSCMessage &msg);
   void setSFIFilter(OSCMessage &msg);
   void setFFIFilter(OSCMessage &msg);
   void setCDT (OSCMessage &msg);
-  void setInterval (OSCMessage &msg, int addressOffset);
+  void setInterval (OSCMessage &msg);
 #endif
 
 #endif

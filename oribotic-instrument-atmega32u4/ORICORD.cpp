@@ -865,7 +865,9 @@ void setupMPR()
     MPR121_0.setFFI(FFI_6);                        // first filter iterations (number of samples taken)
     MPR121_0.setSFI(SFI_4);                        // second filter iterations (number of samples taken)
     #if ORIGAMI == YOSHIMURA
+      #if TEXILE == 0
       MPR121_0.setNumEnabledElectrodes(8);         // version 2 has electrodes from 0-7 connected to the picoblade connector
+      #endif
     #endif
   #endif
   #if MPRCOUNT > 1

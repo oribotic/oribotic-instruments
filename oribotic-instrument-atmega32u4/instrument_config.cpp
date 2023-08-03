@@ -1,4 +1,8 @@
+#include <Arduino.h>
 #include "ORICORD.h"
+#include "instrument_config.h"
+
+uint8_t intervaldelay = INTERVALDELAY;
 
 #if ORIGAMI == YOSHIMURA
     // --------------------------------------------------------------------    BUTTONS
@@ -13,18 +17,34 @@
 
     // LINEAR BEND TABLE
     #if OSC == 1
-    uint8_t bendLinear[256] = {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 24, 25, 25, 25, 26, 26, 26, 26, 27, 27, 27, 28, 28, 28, 29, 29, 29, 30, 30, 30, 31, 31, 31, 32, 32, 32, 33, 33, 33, 34, 34, 34, 35, 35, 36, 36, 36, 37, 37, 38, 38, 38, 39, 39, 40, 40, 41, 41, 42, 42, 42, 43, 43, 44, 44, 45, 45, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51, 52, 52, 53, 54, 54, 55, 56, 56, 57, 58, 58, 59, 60, 61, 62, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 76, 77, 78, 80, 81, 82, 84, 86, 87, 89, 91, 93, 95, 97, 99, 102, 105, 108, 111, 115, 119, 123, 128, 134, 142, 151, 165, 186, 190, 195, 200, 205, 210, 220, 255};
-    struct orikey orikeys[PANELCOUNT] = {
-        // row 1
-        {.pin = 2, .panel = 0, .note = 2, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  0
-        {.pin = 3, .panel = 0, .note = 3, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  1
-        {.pin = 0, .panel = 0, .note = 8, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  6
-        {.pin = 1, .panel = 0, .note = 9, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  7
-        {.pin = 5, .panel = 0, .note = 4, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  2
-        {.pin = 4, .panel = 0, .note = 5, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  3
-        {.pin = 7, .panel = 0, .note = 7, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  5
-        {.pin = 6, .panel = 0, .note = 6, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  4
-    };
+        uint8_t bendLinear[256] = {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 24, 25, 25, 25, 26, 26, 26, 26, 27, 27, 27, 28, 28, 28, 29, 29, 29, 30, 30, 30, 31, 31, 31, 32, 32, 32, 33, 33, 33, 34, 34, 34, 35, 35, 36, 36, 36, 37, 37, 38, 38, 38, 39, 39, 40, 40, 41, 41, 42, 42, 42, 43, 43, 44, 44, 45, 45, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51, 52, 52, 53, 54, 54, 55, 56, 56, 57, 58, 58, 59, 60, 61, 62, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 76, 77, 78, 80, 81, 82, 84, 86, 87, 89, 91, 93, 95, 97, 99, 102, 105, 108, 111, 115, 119, 123, 128, 134, 142, 151, 165, 186, 190, 195, 200, 205, 210, 220, 255};
+        
+        #if TEXTILE == 0
+        struct orikey orikeys[PANELCOUNT] = {
+            // row 1
+            {.pin = 2, .panel = 0, .note = 2, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  0
+            {.pin = 3, .panel = 0, .note = 3, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  1
+            {.pin = 0, .panel = 0, .note = 8, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  6
+            {.pin = 1, .panel = 0, .note = 9, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  7
+            {.pin = 5, .panel = 0, .note = 4, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  2
+            {.pin = 4, .panel = 0, .note = 5, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  3
+            {.pin = 7, .panel = 0, .note = 7, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  5
+            {.pin = 6, .panel = 0, .note = 6, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  4
+        };
+        #endif
+
+        #if TEXTILE == 1
+        struct orikey orikeys[PANELCOUNT] = {
+            {.pin = 4, .panel = 0, .note = 2, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  0
+            {.pin = 5, .panel = 0, .note = 3, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  1
+            {.pin = 2, .panel = 0, .note = 8, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  6
+            {.pin = 3, .panel = 0, .note = 9, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  7
+            {.pin = 7, .panel = 0, .note = 4, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  2
+            {.pin = 6, .panel = 0, .note = 5, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  3
+            {.pin = 9, .panel = 0, .note = 7, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  5
+            {.pin = 8, .panel = 0, .note = 6, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  //  4
+        };
+        #endif 
     
     #endif
     #if MIDI == 1
@@ -233,13 +253,13 @@
         {.pin = 1, .panel = 0, .note = 3, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  1
         {.pin = 2, .panel = 0, .note = 8, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  2
         {.pin = 3, .panel = 0, .note = 9, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  3
-        {.pin = 4, .panel = 0, .note = 4, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  4
-        {.pin = 5, .panel = 0, .note = 5, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  5
+        {.pin = 5, .panel = 0, .note = 4, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  4
+        {.pin = 8, .panel = 0, .note = 5, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  5
         {.pin = 6, .panel = 0, .note = 7, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  6
         {.pin = 7, .panel = 0, .note = 6, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  7
-        {.pin = 8, .panel = 0, .note = 2, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  8
-        {.pin = 9, .panel = 0, .note = 3, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  9
-        {.pin = 10, .panel = 0, .note = 8, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  // 10
+        {.pin = 9, .panel = 0, .note = 2, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  8
+        {.pin = 10, .panel = 0, .note = 3, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},   //  9
+        {.pin = 4, .panel = 0, .note = 8, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  // 10
         {.pin = 11, .panel = 0, .note = 9, .hard = 70, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  // 11
         
     };

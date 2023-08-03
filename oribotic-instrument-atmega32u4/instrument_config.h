@@ -1,37 +1,41 @@
+#include <Arduino.h>
 // only switch one on at a time
 #ifndef INSTRUMENT_CONFIG_H
 #define INSTRUMENT_CONFIG_H
 
-#define MIDI 1
-#define OSC 0
+#define MIDI 0
+#define OSC 1
 
 #if MIDI
-#define INTERVALDELAY 50
+#define INTERVALDELAY 5
 #endif
 #if OSC 
 #define INTERVALDELAY 10
 #endif 
 
+extern uint8_t intervaldelay;
+
 // soft lo offset is the reading below bendLO that soft starts working
 // for PCBS SOFT_LOW_OFFSET 50, LO_HARD_OFFSET 100
 
 #define DEBUG_LEVEL 2       // 0 - 3 
+#define TEXTILE 0
 #define KRESLING 1
 #define YOSHIMURA 2
 #define SUKI 3
-#define ORIGAMI YOSHIMURA
+#define ORIGAMI SUKI
 
 #define ROOTNOTE 60
 
-#define SETUP_FUNCTIONS 0
+#define SETUP_FUNCTIONS 1
 
-#define MODE_DEFAULT 5
+#define MODE_DEFAULT 2
 #define MODE_SERIAL_DEBUG 0 // useful only for serial output checks
 #define MODE_SERIAL_DEBUG_RAW 1 // useful only for serial output checks
 #define MODE_RAW 2 // works for midi and osc
 #define MODE_NORMALISED 3 // works for midi and osc
 #define MODE_RAW_PLUS_NORMALISED 4 // only works on osc 
-#define MODE_TOUCH_PLAY 5
+#define MODE_TOUCH_PLAY 5 // works on midi and osc - default mode
 // #define MODE_TOUCH_PLAY 6
 //#define MODE_SERIAL_DEBUG_BYTES 5 // no longer used 
 

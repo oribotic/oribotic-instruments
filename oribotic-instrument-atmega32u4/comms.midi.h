@@ -18,4 +18,11 @@ void controlChange(byte channel, byte control, byte value);
 void debugMIDI(byte pin, byte action, byte note, int filtered);
 void setMIDIRoot(uint8_t newroot);
 
+#if SETUP_FUNCTIONS == 1
+  void setSFIFilter(uint8_t size);
+  void setFFIFilter(uint8_t size);
+  void setCDT (uint8_t size);
+  void setInterval (uint8_t size);
+#endif
+
 #endif

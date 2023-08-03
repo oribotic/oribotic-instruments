@@ -71,10 +71,43 @@
              break;
             case 110:               // set mode
               mode = value;
+              controlChange(0, 110, value); // send feedback on same channel
+              // Serial.println(mode);
+              break;
             case 109:               // set root note
               setMIDIRoot(value);
+              controlChange(0, 109, value); // send feedback on same channel
+              break;
             case 108:               // set scale
               setScale(value);
+              controlChange(0, 108, value); // send feedback on same channel
+              break;
+            case 112:               // set FF1
+              setFFIFilter(value);
+              Serial.print("set FFI ");
+              Serial.println(value);
+              // controlChange(0, 112, value); // send feedback on same channel
+              break;
+            case 113:               // set SF1
+              setSFIFilter(value);
+              Serial.print("set SFI ");
+              Serial.println(value);
+              //controlChange(0, 113, value); // send feedback on same channel
+              break;
+            case 114:               // set Interval
+              setInterval(value);
+              Serial.print("set Interval ");
+              Serial.println(value);
+              //controlChange(0, 114, value); // send feedback on same channel
+              break;
+            case 115:               // set CDT
+              setCDT(value);
+              Serial.print("set CDT ");
+              Serial.println(value);
+              //controlChange(0, 115, value); // send feedback on same channel
+              break;
+
+
           }
         }
     } while (rx.header != 0);
@@ -120,5 +153,175 @@
   {
   rootNote = newroot;
   }
+
+#if SETUP_FUNCTIONS == 1
+
+  void setFFIFilter(uint8_t size)
+  {
+      mpr121_FFI_t setting;
+      setting = FFI_6;
+      switch (size)
+      {
+        case 0:
+          setting = FFI_6;
+          break;
+        case 1:
+          setting = FFI_10;
+          break;
+        case 2:
+          setting = FFI_18;
+          break;
+        case 3:
+          setting = FFI_34;
+          break;
+      }
+      #if MPRCOUNT > 0
+          MPR121_0.setFFI(setting);
+      #endif
+      #if MPRCOUNT > 1
+          MPR121_1.setFFI(setting);
+      #endif
+      #if MPRCOUNT > 2
+          MPR121_2.setFFI(setting);
+      #endif
+      #if MPRCOUNT > 3
+          MPR121_3.setFFI(setting);
+      #endif
+  }
+
+  void setSFIFilter(uint8_t size)
+  {
+      mpr121_SFI_t setting;
+      setting = SFI_4;
+      switch (size)
+      {
+        case 0:
+          setting = SFI_4;
+          break;
+        case 1:
+          setting = SFI_6;
+          break;
+        case 2:
+          setting = SFI_10;
+          break;
+        case 3:
+          setting = SFI_18;
+          break;
+      }
+      #if MPRCOUNT > 0
+          MPR121_0.setSFI(setting);
+      #endif
+      #if MPRCOUNT > 1
+          MPR121_1.setSFI(setting);
+      #endif
+      #if MPRCOUNT > 2
+          MPR121_2.setSFI(setting);
+      #endif
+      #if MPRCOUNT > 3
+          MPR121_3.setSFI(setting);
+      #endif
+  }
+
+  
+
+void setCDT (uint8_t size)
+{
+    mpr121_CDT_t cdt;
+    cdt = CDT_500NS;
+    if (size == 0)
+    {
+    cdt = CDT_500NS;
+    }   
+    if (size == 1)
+    {
+    cdt = CDT_1US;
+    }
+    if (size == 2)
+    {
+    cdt = CDT_2US;
+    }
+    if (size == 4)
+    {
+    cdt = CDT_4US;
+    }
+    if (size == 8)
+    {
+    cdt = CDT_8US;
+    }
+    if (size == 16)
+    {
+    cdt = CDT_16US;
+    }
+    if (size == 32)
+    {
+    cdt = CDT_32US;
+    }
+
+    #if MPRCOUNT > 0
+        MPR121_0.setGlobalCDT(cdt);
+    #endif
+    #if MPRCOUNT > 1
+        MPR121_1.setGlobalCDT(cdt);
+    #endif
+    #if MPRCOUNT > 2
+        MPR121_2.setGlobalCDT(cdt);
+    #endif
+    #if MPRCOUNT > 3
+        MPR121_3.setGlobalCDT(cdt);
+    #endif
+
+}
+
+void setInterval (uint8_t size) 
+{
+    mpr121_sample_interval_t interval;
+    interval = SAMPLE_INTERVAL_1MS;
+    if (size == 1)
+    {
+    interval = SAMPLE_INTERVAL_1MS;
+    }
+    if (size == 2)
+    {
+    interval = SAMPLE_INTERVAL_2MS;
+    }
+    if (size == 4)
+    {
+    interval = SAMPLE_INTERVAL_4MS;
+    }
+    if (size == 8)
+    {
+    interval = SAMPLE_INTERVAL_8MS;
+    }
+    if (size == 16)
+    {
+    interval = SAMPLE_INTERVAL_16MS;
+    }
+    if (size == 32)
+    {
+    interval = SAMPLE_INTERVAL_32MS;
+    }
+    if (size == 64)
+    {
+    interval = SAMPLE_INTERVAL_64MS;
+    }
+    if (size == 127)
+    {
+    interval = SAMPLE_INTERVAL_128MS;
+    }
+    #if MPRCOUNT > 0
+        MPR121_0.setSamplePeriod(interval);
+    #endif
+    #if MPRCOUNT > 1
+        MPR121_1.setSamplePeriod(interval);
+    #endif
+    #if MPRCOUNT > 2
+        MPR121_2.setSamplePeriod(interval);
+    #endif
+    #if MPRCOUNT > 3
+        MPR121_3.setSamplePeriod(interval);
+    #endif
+}
+
+#endif  // SETUP FUNCTIONS
 
 #endif
