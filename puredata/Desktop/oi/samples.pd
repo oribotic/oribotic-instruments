@@ -1,4 +1,4 @@
-#N canvas 0 100 1497 862 12;
+#N canvas 34 78 1343 634 12;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array audio1_L 352800 float 0;
 #X coords 0 1 352799 -1 150 50 1;

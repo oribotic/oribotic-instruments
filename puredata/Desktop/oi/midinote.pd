@@ -1,4 +1,4 @@
-#N canvas 986 250 467 527 12;
+#N canvas 127 119 1527 642 12;
 #X obj 70 52 inlet;
 #X floatatom 137 243 5 0 0 0 - - - 0;
 #X text 173 242 midi note;
@@ -16,10 +16,8 @@
 #X obj 164 52 inlet;
 #X obj 197 398 r midichannel;
 #X obj 176 362 r midiON;
-#X obj 316 243 print;
 #X connect 0 0 6 0;
 #X connect 0 0 8 0;
-#X connect 0 0 17 0;
 #X connect 0 0 10 0;
 #X connect 1 0 3 0;
 #X connect 3 0 4 0;
