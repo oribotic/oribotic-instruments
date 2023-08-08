@@ -111,6 +111,9 @@ void loop() {
       case MODE_TOUCH_PLAY:           // 5
         touchPlay(i);
         break;
+      case 6:                         // 6
+        soft(i);
+        break;
     }
   }
   #ifdef PANELGROUPS
@@ -119,7 +122,7 @@ void loop() {
     updatePanelGroups();
   }
   #endif  
-  delay(INTERVALDELAY);
+  delay(intervaldelay);
 }
 
 

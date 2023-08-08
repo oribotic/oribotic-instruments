@@ -72,6 +72,51 @@ struct panels MPRpanels[MPRCOUNT] = {
 };
 #endif
 
+
+void soft(uint8_t key)
+{
+  uint8_t note = orikeys[key].note + rootNote;
+  uint8_t pin = orikeys[key].pin;
+  uint8_t panel = orikeys[key].panel;
+  uint8_t state = orikeys[key].state;
+  uint16_t last = orikeys[key].last;
+  uint16_t filtered;
+  uint8_t baseline;
+  long normalised;
+  bool touched;
+  bool released;
+  bool touchdata;
+  
+  char msg_str[12];
+  uint16_t arg_state;
+  // filtered data
+  filtered = MPRpanels[panel].mpr->getFilteredData(pin);
+  touched = MPRpanels[panel].mpr->getTouchData(pin);
+  baseline = MPRpanels[panel].mpr->getBaselineData(pin);
+  byte action = 0; 
+  
+  if (touchdata)
+  {
+    //send("d", key, note, 1);      // used to be t
+    action = 1;
+    // send soft signal data
+  }
+  if (released)
+  {
+    //send("d", key, note, 0);      // used to be t
+    action = 0;
+  }
+
+  // update state orikeys table
+  orikeys[key].state = action;
+  orikeys[key].last = filtered;
+
+  if (touched)
+  {
+    arg_state = mapSoft(key, filtered);
+  }
+}
+
 void raw(uint8_t key) 
 {
     uint8_t note = orikeys[key].note + rootNote;
@@ -201,7 +246,75 @@ void play(uint8_t key)
     }
 } 
 
+uint16_t mapSoft(uint8_t key, uint16_t filtered)
+{
+  uint8_t pin = orikeys[key].pin;
+  uint8_t panel = orikeys[key].panel;
+  uint8_t touchThreshold = MPRpanels[panel].mpr->getTouchThreshold(pin);
+  uint16_t softTouch;
+  long normalised;
+  uint8_t range = orikeys[key].soft - orikeys[key].hard;
+  
+  
+  // record the new hard value
+  if (filtered < orikeys[key].hard)
+  {
+    // limit soft filter SOFT_FILTER_LIMIT
+    if (filtered > orikeys[key].soft - SOFT_FILTER_LIMIT)
+    {
+      orikeys[key].hard = filtered;
+    }
+  }
+  // record the new hard value
+  if (filtered > orikeys[key].soft)
+  {
+    orikeys[key].soft = filtered;
+  }
 
+  uint16_t constrained = filtered;
+  // constrain the filtered between hard and soft
+  if (constrained > orikeys[key].soft)
+  {
+    constrained = orikeys[key].soft;
+    //Serial.print("XS ");
+  }
+  if (constrained < orikeys[key].hard)
+  {
+    constrained = orikeys[key].hard;
+    //Serial.print("XH ");
+  }
+
+  // get a value for our 
+  normalised = longmap(constrained, orikeys[key].hard, orikeys[key].soft, 0, ARR_LEN(bendLinear)-1);
+  softTouch = (uint16_t) normalised;
+
+  if (DEBUG_LEVEL > 2)
+  {
+    Serial.print(key);
+
+    Serial.print(" \tAL: ");
+    Serial.print(ARR_LEN(bendLinear)-1);
+
+    Serial.print(" \tH: ");
+    Serial.print(orikeys[key].hard);
+
+    Serial.print(" \tS: ");
+    Serial.print(orikeys[key].soft);
+
+    Serial.print("\tR: ");
+    Serial.print(range);
+
+    Serial.print("\tF:");
+    Serial.print(filtered);
+
+    Serial.print("\tN:");
+    Serial.print(normalised);
+
+    Serial.print("\tN:");
+    Serial.println(softTouch);
+  }
+  return softTouch;
+}
 #if OSC == 1
 
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state )
@@ -290,126 +403,6 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
 
 #endif 
 
-void touchPlay001(uint8_t key)
-{
-    uint8_t note = orikeys[key].note + rootNote;
-    uint8_t pin;
-    uint8_t panel = orikeys[key].panel;
-    uint8_t state = orikeys[key].state;
-    uint16_t last = orikeys[key].last;
-    uint16_t filtered;
-    long normalised;
-    bool touched;
-    bool released;
-
-  #if REVERSED
-    pin = reverse_logical[orikeys[key].pin];
-  #else
-    pin = orikeys[key].pin;
-  #endif
-
-    // filtered data
-    filtered = MPRpanels[panel].mpr->getFilteredData(pin);
-    touched = MPRpanels[panel].mpr->isNewTouch(pin);
-    released = MPRpanels[panel].mpr->isNewRelease(pin);
-
-    byte action; 
-    // check the filtered data to decide which midiaction to take
-    action = getActionState(key, filtered);
-
-    // update state orikeys table
-    orikeys[key].state = action;
-    orikeys[key].last = filtered;
-
-    char msg_str[12];
-    uint16_t arg_state;
-    uint16_t arg_note = 3333;
-    
-    // using touch data
-    if (touched)
-    {
-      send("t", key, note, 1);
-    }
-    if (released)
-    {
-      send("t", key, note, 0);
-    }
-    switch (action)
-    {
-    case 0:
-      // off
-      // if (state != 0)
-      // {
-      //   send("d", key, note, 0);
-      // } // send only on toggle
-      break;
-    case 1:
-      // hard
-      // if (state != 1)
-      // {
-      //   send("d", key, note, 1);
-      // } // send only on toggle
-      break;
-    case 2:
-      // soft
-      // if (state != 2)
-      // {
-      //   // send digital note ON if this is the first setting of soft touch
-      //   send("d", key, note, 1);
-      // }
-      // // soft touch analysis
-      // sprintf(msg_str, "/s/%d", key);
-      // arg_state = filtered;
-      // if (filtered < orikeys[key].hard)
-      // {
-      //   filtered = orikeys[key].hard;
-      // }
-      // if (filtered > orikeys[key].bendLO)
-      // {
-      //   filtered = orikeys[key].bendLO;
-      // }
-      
-      // normalised = map(filtered, orikeys[key].hard, orikeys[key].bendLO, 0, ARR_LEN(bendLinear));
-      // arg_state = bendLinear[normalised]; // convert normal value to linear value
-      // #if MIDI == 1
-      //   arg_state = arg_state/2;
-      // #endif
-      // if (filtered != last)
-      // {
-      //   send("s", key, note, arg_state);
-      //   //sendOSC(msg_str, arg_state, arg_note); // send every time
-      // }
-      break;
-    case 3:
-    case 4:
-      if (state != 3)
-      {
-        // send digital note OFF if this is the first setting of BEND
-        send("d", key, note, 0);
-      }
-      // bendHI <> bendLO
-
-      // normalise the key output value between bendLO and bendHI
-      if (filtered < orikeys[key].bendLO)
-        filtered = orikeys[key].bendLO;
-      if (filtered > orikeys[key].bendHI)
-        filtered = orikeys[key].bendHI;
-
-      normalised = map(filtered, orikeys[key].bendLO, orikeys[key].bendHI, 0, ARR_LEN(bendLinear));
-      arg_state = bendLinear[normalised]; // convert normal value to linear value
-      #if MIDI == 1
-        arg_state = arg_state/2;
-      #endif
-      if (filtered != last)
-      {
-        //sendOSC(msg_str, arg_state, arg_note); // send every time
-        send("b", key, note, arg_state);
-      }
-      break;
-    }
-} 
-
-
 void touchPlay(uint8_t key)
 {
   uint8_t note = orikeys[key].note + rootNote;
@@ -419,11 +412,14 @@ void touchPlay(uint8_t key)
   uint16_t last = orikeys[key].last;
   uint16_t filtered;
   long normalised;
+  bool newtouch;
   bool touched;
   bool released;
+  uint8_t touchThreshold;
   char msg_str[12];
   uint16_t arg_state;
-
+  byte action; 
+  
   #if REVERSED
     pin = reverse_logical[orikeys[key].pin];
   #else
@@ -432,10 +428,10 @@ void touchPlay(uint8_t key)
 
   // filtered data
   filtered = MPRpanels[panel].mpr->getFilteredData(pin);
-  touched = MPRpanels[panel].mpr->isNewTouch(pin);
+  newtouch = MPRpanels[panel].mpr->isNewTouch(pin);
+  touched = MPRpanels[panel].mpr->getTouchData(pin);
   released = MPRpanels[panel].mpr->isNewRelease(pin);
-
-  byte action; 
+  
   // check the filtered data to decide which midiaction to take
   // action = getActionState(key, filtered);
 
@@ -446,24 +442,25 @@ void touchPlay(uint8_t key)
     action = 0;
   }
 
-  if (touched)
+  if (newtouch)
   {
     send("d", key, note, 1);      // used to be t
+    action = 1;
+  }
+
+  // soft touch data
+  if (touched)
+  {
+    arg_state = mapSoft(key, filtered);
+    send("s", key, note, arg_state);
     action = 1;
   }
 
   // update state orikeys table
   orikeys[key].state = action;
   orikeys[key].last = filtered;
-
-  if (state == 1)
-  {
-    // soft touch data
-  }
-
   
   // bend data
-  int prefiltered = filtered;
   if (filtered < orikeys[key].bendLO)
   {
     filtered = orikeys[key].bendLO;
@@ -510,8 +507,19 @@ uint8_t getActionState (uint8_t key, uint16_t filtered)
   return action;
 }
 
+void resetHardSoft() 
+{
+  uint8_t key = 0;
+  for (key=0; key<PINCOUNT; key++)
+  {
+    orikeys[key].hard = 1024;
+    orikeys[key].soft = 0;
+  }
+}
+
 void doCalibrate()
 {
+  resetHardSoft();
 #if MPRCOUNT > 0
   MPR121_0.autoSetElectrodes(3300, false);
   if (MPR121_0.isInited())

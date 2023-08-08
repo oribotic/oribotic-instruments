@@ -39,6 +39,7 @@ struct orikey
   uint8_t panel;      // idenfity the panel
   uint8_t note;       // note to assoticate
   uint16_t hard;      // hard level
+  uint16_t soft;      // hard level
   uint16_t bendLO;
   uint16_t bendHI;
   uint8_t state;
@@ -97,9 +98,10 @@ void doCalibrate();
 // main read write functions
 void raw (uint8_t key);
 void play(uint8_t key);
+void soft(uint8_t key);
 void touchPlay(uint8_t key);
 uint8_t getActionState (uint8_t key, uint16_t filtered);
-
+uint16_t mapSoft(uint8_t key, uint16_t filtered);
 
 #if OSC == 1
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state );
