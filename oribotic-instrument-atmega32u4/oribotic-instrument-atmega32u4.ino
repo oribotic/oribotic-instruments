@@ -109,11 +109,10 @@ void loop() {
         raw(i); 
         break;
       case MODE_TOUCH_PLAY:           // 5
+      case MODE_SOFT_VELOCITY:        // 6 has adjustments in send() for midi
         touchPlay(i);
         break;
-      case 6:                         // 6
-        soft(i);
-        break;
+
     }
   }
   #ifdef PANELGROUPS

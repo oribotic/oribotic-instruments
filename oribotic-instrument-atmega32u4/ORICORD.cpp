@@ -173,7 +173,7 @@ uint16_t mapSoft(uint8_t key, uint16_t filtered)
   }
 
   // get a value for our 
-  normalised = longmap(constrained, orikeys[key].hard, orikeys[key].soft, 0, ARR_LEN(bendLinear)-1);
+  normalised = longmap(constrained, orikeys[key].hard, orikeys[key].soft, ARR_LEN(bendLinear)-1, 0);
   softTouch = (uint16_t) normalised;
 
   if (DEBUG_LEVEL > 2)
@@ -236,20 +236,20 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
   switch (channel[0])
   {
     case 'd':
-      if (state==1)
+      if (state>0)
       {
-        noteOn(midi_channel, key, attack_velocity);
+        noteOn(midi_channel, key, state);
         if (DEBUG_LEVEL > 1)
         {
-          debugMidi("hard on:", midi_channel, key, attack_velocity );
+          debugMidi("touch state:", midi_channel, key, state );
         }
-      } 
+      }
       if (state==0)
       {
-        noteOff(midi_channel, key, release_velocity);
+        noteOff(midi_channel, key, state);
         if (DEBUG_LEVEL > 1)
         {
-          debugMidi("hard off:", midi_channel, key, attack_velocity );
+          debugMidi("touch off:", midi_channel, key, release_velocity);
         }
       }
       break;
@@ -324,6 +324,20 @@ void touchPlay(uint8_t key)
   // check the filtered data to decide which midiaction to take
   // action = getActionState(key, filtered);
 
+  
+  // soft touch data
+  if (touched)
+  {
+    arg_state = mapSoft(key, filtered);
+    send("s", key, note, arg_state);
+    // mode soft velocity sends velocity data for soft touch on the /d channel
+    if (mode == MODE_SOFT_VELOCITY)
+    {
+      send("d", key, note, arg_state);
+    }
+    action = 1;
+  }
+
   // using touch data
   if (released)
   {
@@ -331,19 +345,15 @@ void touchPlay(uint8_t key)
     action = 0;
   }
 
-  if (newtouch)
+  if (mode != MODE_SOFT_VELOCITY)
   {
-    send("d", key, note, 1);      // used to be t
-    action = 1;
-  }
+    if (newtouch)
+    {
+      send("d", key, note, 127);      // used to be t
+      action = 1;
+    }
+  } 
 
-  // soft touch data
-  if (touched)
-  {
-    arg_state = mapSoft(key, filtered);
-    send("s", key, note, arg_state);
-    action = 1;
-  }
 
   // update state orikeys table
   orikeys[key].state = action;

@@ -18,7 +18,7 @@ extern uint8_t intervaldelay;
 // soft lo offset is the reading below bendLO that soft starts working
 // for PCBS SOFT_LOW_OFFSET 50, LO_HARD_OFFSET 100
 
-#define DEBUG_LEVEL 1   // 0 - 3 
+#define DEBUG_LEVEL 2   // 0 - 3 
 #define TEXTILE 0
 #define KRESLING 1
 #define YOSHIMURA 2
@@ -38,6 +38,7 @@ extern uint8_t intervaldelay;
 #define MODE_NORMALISED 3 // works for midi and osc
 #define MODE_RAW_PLUS_NORMALISED 4 // only works on osc 
 #define MODE_TOUCH_PLAY 5 // works on midi and osc - default mode
+#define MODE_SOFT_VELOCITY 6 // works on midi and osc - default mode
 // #define MODE_TOUCH_PLAY 6
 //#define MODE_SERIAL_DEBUG_BYTES 5 // no longer used 
 
