@@ -3,8 +3,8 @@
 #ifndef INSTRUMENT_CONFIG_H
 #define INSTRUMENT_CONFIG_H
 
-#define MIDI 0
-#define OSC 1
+#define MIDI 1
+#define OSC 0
 
 #if MIDI
 #define INTERVALDELAY 5
@@ -18,12 +18,12 @@ extern uint8_t intervaldelay;
 // soft lo offset is the reading below bendLO that soft starts working
 // for PCBS SOFT_LOW_OFFSET 50, LO_HARD_OFFSET 100
 
-#define DEBUG_LEVEL 2    // 0 - 3 
+#define DEBUG_LEVEL 1   // 0 - 3 
 #define TEXTILE 0
 #define KRESLING 1
 #define YOSHIMURA 2
 #define SUKI 3
-#define ORIGAMI SUKI
+#define ORIGAMI YOSHIMURA
 
 #define SOFT_FILTER_LIMIT 200
 

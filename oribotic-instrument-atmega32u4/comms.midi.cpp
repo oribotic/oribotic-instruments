@@ -18,24 +18,32 @@
     // if note
     uint8_t control;
     uint8_t value;
+    uint8_t channel;
     midiEventPacket_t rx;
     do {
        rx = MidiUSB.read();
         if (rx.header != 0) {
           // echo back to device
           controlChange(rx.byte1, rx.byte2, rx.byte3);
+          channel = rx.byte1 & 0x0B;
           control = rx.byte2 & 0x7F;
           value   = rx.byte3 & 0x7F;
+          Serial.print("channel: ");
+          Serial.print(channel);
+          Serial.print("\tcontrol: ");
+          Serial.print(control);
+          Serial.print("\tvalue: ");
+          Serial.println(value);
           //control = rx.byte2;
           //value   = rx.byte3;
-          Serial.print("header DEC:");
-          Serial.println(rx.header, DEC);
-          Serial.print("1 DEC:");
-          Serial.println(rx.byte1, DEC);
-          Serial.print("2 DEC:");
-          Serial.println(rx.byte2, DEC);
-          Serial.print("3 DEC:");
-          Serial.println(rx.byte3, DEC);
+          // Serial.print("header DEC:");
+          // Serial.println(rx.header, DEC);
+          // Serial.print("1 DEC:");
+          // Serial.println(rx.byte1, DEC);
+          // Serial.print("2 DEC:");
+          // Serial.println(rx.byte2, DEC);
+          // Serial.print("3 DEC:");
+          // Serial.println(rx.byte3, DEC);
           switch (control) {
             case 111:               // calibrate command
             // set Hard	  [111] 0		x
@@ -65,7 +73,7 @@
                 break;
               case 20: 
                 setBendAllKeys("loHS");  
-                Serial.println("lohs");            
+                //Serial.println("lohs");            
                 break;
              }
              break;
@@ -115,8 +123,10 @@
 
   void noteOn(byte channel, byte pitch, byte velocity) {
     midiEventPacket_t midinote = {0x09, 0x90 | channel, pitch, velocity};
-    Serial.print ("midi note: ");
-    Serial.println(pitch);
+    if (DEBUG_LEVEL > 0){
+      Serial.print ("midi note: ");
+      Serial.println(pitch);
+    } 
     MidiUSB.sendMIDI(midinote);
     MidiUSB.flush();
   }

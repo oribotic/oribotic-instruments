@@ -102,10 +102,10 @@ void loop() {
         raw(i);
         break;
       case MODE_NORMALISED:           // 3
-        play(i);
+        touchPlay(i);
         break;
       case MODE_RAW_PLUS_NORMALISED:  // 4
-        play(i);
+        touchPlay(i);
         raw(i); 
         break;
       case MODE_TOUCH_PLAY:           // 5
