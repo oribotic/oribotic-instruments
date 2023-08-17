@@ -1,6 +1,0 @@
-{
-    "sketch": "oribotic-instrument-atmega32u4.ino",
-    "board": "arduino:avr:micro",
-    "port": "/dev/tty.usbmodem2101",
-    "programmer": "avrisp"
-}
