@@ -28,10 +28,33 @@
 
 #if OSC == 1 
 
+// variant one for basic messaging to string based channels
 void sendOSC(char msg_str[20], uint16_t arg1, uint16_t arg2 = 3333)
 {
     OSCMessage msg(msg_str);
+    // add key
+    // add state
     msg.add(arg1);
+    // optionally add midi note number
+    if (arg2 != 3333)
+    {
+      msg.add(arg2);
+    }
+    SLIPSerial.beginPacket();
+    msg.send(SLIPSerial);   // send the bytes to the SLIP stream
+    SLIPSerial.endPacket(); // mark the end of the OSC Packet
+    msg.empty();            // free space occupied by message
+}
+
+// variant two (NEW) for sending instruments messages 
+void sendOSC(char msg_str[20], uint8_t key, uint16_t arg1, uint16_t arg2 = 3333)
+{
+    OSCMessage msg(msg_str);
+    // add key
+    msg.add(key);
+    // add state
+    msg.add(arg1);
+    // optionally add midi note number
     if (arg2 != 3333)
     {
       msg.add(arg2);

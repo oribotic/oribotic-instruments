@@ -32,6 +32,7 @@ void rxOSC();
 //void touchedPlayOSC(uint8_t key);
 void getNotes();
 void sendOSC(char msg_str[20], uint16_t arg1, uint16_t arg2 = 3333);
+void sendOSC(char msg_str[20], uint8_t key, uint16_t arg1, uint16_t arg2 = 3333);
 void setRoot(OSCMessage &msg);
 void setMode(OSCMessage &msg);
 void setKeyProp(OSCMessage &msg, char param[4]);

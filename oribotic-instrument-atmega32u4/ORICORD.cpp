@@ -208,9 +208,10 @@ uint16_t mapSoft(uint8_t key, uint16_t filtered)
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state )
 {
   char msg_str[12];
-  sprintf(msg_str, "/%s/%d", channel, key);
-  // /d/1 0 68
-  sendOSC(msg_str, state, note);
+  sprintf(msg_str, "/%s", channel);
+  // OLD /d/1 0 68
+  // NEW /d 1 0 68
+  sendOSC(msg_str, key, state, note);
 }
 
 #endif
