@@ -65,6 +65,18 @@ void sendOSC(char msg_str[20], uint8_t key, uint16_t arg1, uint16_t arg2 = 3333)
     msg.empty();            // free space occupied by message
 }
 
+// returns true if arg at index is an int or a float
+bool isNumber(OSCMessage &msg, int arg)
+{
+  return msg.isInt(arg) || msg.isFloat(arg);
+}
+
+// returns int or float value of arg at index as an int
+int getNumber(OSCMessage &msg, int arg)
+{
+  return (msg.isFloat(arg) ? (int)msg.getFloat(arg) : msg.getInt(arg));
+}
+
 void dispatchGetNotes(OSCMessage &msg)
 {
     getNotes();
@@ -85,9 +97,9 @@ void getNotes()
 
 void setRoot(OSCMessage &msg)
 {
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
       rootNote = val;
       // send feedback to PD
       sendOSC("/set/root", val);
@@ -97,9 +109,9 @@ void setRoot(OSCMessage &msg)
 
 void setScale(OSCMessage &msg)
 {
-  if (msg.isInt(0))
+  if (isNumber(msg, 0))
   {
-    uint8_t val = msg.getInt(0);
+    uint8_t val = getNumber(msg, 0);
     changeScale(val);
   }
 }
@@ -107,9 +119,9 @@ void setScale(OSCMessage &msg)
 void setMode(OSCMessage &msg)
 {
     sendOSC("/set/mode", 0);
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
       mode = val;
       // send feedback to PD
       sendOSC("/set/mode", val);
@@ -129,12 +141,12 @@ void setKeyProp(OSCMessage &msg, char param[4])
     uint8_t key;
     uint16_t val;
     char chan[16];
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      key = msg.getInt(0);
-      if (msg.isInt(1))
+      key = getNumber(msg, 0);
+      if (isNumber(msg, 1))
       {
-        val = msg.getInt(1);
+        val = getNumber(msg, 1);
       }
       else
       {
@@ -223,9 +235,9 @@ void rxOSC()
 
 void setSFIFilter(OSCMessage &msg)
 {
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
       switch (val)
       {
         case 0:
@@ -247,9 +259,9 @@ void setSFIFilter(OSCMessage &msg)
 
 void setFFIFilter(OSCMessage &msg)
 {
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
       switch (val)
       {
         case 0:
@@ -273,8 +285,8 @@ void setCDT (OSCMessage &msg)
 {
     mpr121_CDT_t cdt;
     uint8_t size;
-    if (msg.isInt(0)) {
-    size = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+    size = getNumber(msg, 0);
     sendOSC("/filter/CDT", size);
     }
     if (size == 0)
@@ -325,8 +337,8 @@ void setInterval (OSCMessage &msg)
 {
     mpr121_sample_interval_t interval;
     uint8_t size;
-    if (msg.isInt(0)) {
-        size = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+        size = getNumber(msg, 0);
         sendOSC("/set/interval", size);
     }
     if (size == 1)
