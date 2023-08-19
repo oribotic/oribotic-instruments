@@ -1,0 +1,18 @@
+#N canvas 203 127 402 375 12;
+#X obj 30 130 oi.m.control;
+#X text 126 140 right: unmatched input;
+#X listbox 71 210 20 0 0 0 - - - 0;
+#X obj 30 288 route mode;
+#X obj 30 326 hradio 19 1 0 6 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0;
+#X obj 71 179 list;
+#X text 133 178 left: status return from device;
+#X text 26 15 device control MIDI message formatter;
+#X obj 30 81 oi.allcontrols;
+#X text 27 55 see all messages:;
+#X obj 30 247 route set;
+#X connect 0 0 5 0;
+#X connect 0 0 10 0;
+#X connect 3 0 4 0;
+#X connect 5 0 2 0;
+#X connect 8 0 0 0;
+#X connect 10 0 3 0;
