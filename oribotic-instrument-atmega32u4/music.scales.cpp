@@ -26,7 +26,13 @@ void generateMidiScale (uint8_t index, uint8_t root)
     scale[0] = root;
 
     bool tonalstep;
-    uint8_t scaleMap = availableScales[index].tones;
+    uint8_t scaleMap;
+
+    if (index > MAXSCALE)
+    {
+      return;
+    }
+    scaleMap = availableScales[index].tones;
     // remember 0b00000001 (the ONE is bit 0)
     // so we skip bit 0
 
@@ -46,11 +52,15 @@ void generateMidiScale (uint8_t index, uint8_t root)
     scale[7] = root + 12;
 }
 
-void changeScale (uint8_t value)
+uint8_t changeScale(uint8_t value)
 {
+  if (value <= MAXSCALE)
+  {
     // set global value
     scaleIndex = value;
     generateMidiScale(scaleIndex, rootNote);
+  }
+  return scaleIndex;
 }
 
 void changeRoot(boolean direction)

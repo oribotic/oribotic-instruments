@@ -514,9 +514,9 @@ void setBendSingleKey(uint8_t key, char param[4])
     orikeys[key].bendHI = val;
   }
   #if OSC == 1
-    sprintf(chan, "/key/%s/%d", param, key);
+    sprintf(chan, "/key/%s", param);
     //Serial.println(chan);
-    sendOSC(chan, val);
+    sendOSC(chan, key, val);
   #else
     if (mode==MODE_SERIAL_DEBUG || mode==MODE_SERIAL_DEBUG_RAW)
     {

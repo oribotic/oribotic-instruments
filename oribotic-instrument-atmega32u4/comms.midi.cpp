@@ -78,7 +78,7 @@
              }
              break;
             case 110:               // set mode
-              mode = value;
+              setMode(value);
               controlChange(0, 110, value); // send feedback on same channel
               // Serial.println(mode);
               break;
@@ -159,9 +159,22 @@
     Serial.println(note);
   }
 
+  void setMode(uint8_t mode)
+  {
+    if (value > MAXMODE)
+    {
+      return;
+    }
+    mode = value;
+  }
+
   void setMIDIRoot(uint8_t newroot)
   {
-  rootNote = newroot;
+    if (val < 0 || val > 127)
+    {
+      return;
+    }
+    rootNote = newroot;
   }
 
 #if SETUP_FUNCTIONS == 1

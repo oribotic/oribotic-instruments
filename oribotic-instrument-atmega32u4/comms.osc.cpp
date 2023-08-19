@@ -83,12 +83,10 @@ void dispatchGetNotes(OSCMessage &msg)
 void getNotes()
 {
     int note;
-    char chan[10];
     for (int i = 0; i < PINCOUNT; i++)
     {
       note = orikeys[i].note + rootNote;
-      sprintf(chan, "/n/%d", i);
-      sendOSC(chan, note);
+      sendOSC("/n", (uint8_t)i, note);
       delay(20);
     }
 }
@@ -98,6 +96,10 @@ void setRoot(OSCMessage &msg)
     if (isNumber(msg, 0))
     {
       int val = getNumber(msg, 0);
+      if (val < 0 || val > 127)
+      {
+        return;
+      }
       rootNote = val;
       // send feedback to PD
       sendOSC("/set/root", val);
@@ -109,8 +111,10 @@ void setScale(OSCMessage &msg)
 {
   if (isNumber(msg, 0))
   {
-    uint8_t val = getNumber(msg, 0);
-    changeScale(val);
+    int val = getNumber(msg, 0);
+    val = changeScale((uint8_t)val);
+    // send feedback to PD
+    sendOSC("/set/scale", val);
   }
 }
 
@@ -120,6 +124,10 @@ void setMode(OSCMessage &msg)
     if (isNumber(msg, 0))
     {
       int val = getNumber(msg, 0);
+      if( val < 0 || val > MAXMODE)
+      {
+        return;
+      }
       mode = val;
       // send feedback to PD
       sendOSC("/set/mode", val);
