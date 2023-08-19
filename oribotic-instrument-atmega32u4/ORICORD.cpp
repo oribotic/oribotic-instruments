@@ -818,8 +818,8 @@ void setupMPR()
 
   void setPanelGroup(OSCMessage &msg)
   {
-    if (msg.isInt(0)) {
-      bool val = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+      bool val = getNumber(msg, 0);
       // send feedback to PD
       if (val == 1)
       {

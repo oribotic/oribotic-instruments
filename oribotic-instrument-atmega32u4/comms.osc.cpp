@@ -65,13 +65,11 @@ void sendOSC(char msg_str[20], uint8_t key, uint16_t arg1, uint16_t arg2 = 3333)
     msg.empty();            // free space occupied by message
 }
 
-// returns true if arg at index is an int or a float
 bool isNumber(OSCMessage &msg, int arg)
 {
   return msg.isInt(arg) || msg.isFloat(arg);
 }
 
-// returns int or float value of arg at index as an int
 int getNumber(OSCMessage &msg, int arg)
 {
   return (msg.isFloat(arg) ? (int)msg.getFloat(arg) : msg.getInt(arg));

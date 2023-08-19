@@ -26,6 +26,12 @@
 
 // --------------------------------------------------------------------    FUNCTION PROTOTYPES
 
+// returns true if arg at index is an int or a float
+bool isNumber(OSCMessage &msg, int arg);
+
+// returns int or float value of arg at index as an int
+int getNumber(OSCMessage &msg, int arg);
+
 void rxOSC();
 //void rawOSC(uint8_t key);
 //void playOSC(uint8_t key);
