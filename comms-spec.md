@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: Strategies for programming foldable instruments - Capacitive
 subtitle: Oribotic-Instruments-003
@@ -33,6 +34,9 @@ csl: we-will-also-set-this-up.csl
 ---
 
 ##  AFFORDANCES
+=======
+# AFFORDANCES
+>>>>>>> upstream/main
 
 Using the MPR121's touch register in addition to filtered and baseline data from the MPR121, we identified four unique of gestural affordances from these instruments electrodes.
 
@@ -41,7 +45,10 @@ Using the MPR121's touch register in addition to filtered and baseline data from
 3. **Fold Sensing**: examining the filtered data at all times affords an approximation of proximity to another object. In the case of performace this can be the adjacent panel or the performer. The sensor gives no indication to the nature of the object, only that it is closer or futher away. This makes for a very sensitive instrument. With a mathematical adjustment, derived from experimental test data with identical electrode pairs, we are able to estimate the angular position between the electrodes. The result is an integer value, reported as raw (MPR121->filtered) or bend range as defined during calibration, the value is generally scaled to 0-254 for OSC or 0-127 for MIDI and can be used for controlling of sound parameters. A simple example is the volume of a sound sample, a more complex use is to link the bend to one or more parametric audio operations. See Fold Sensing for detail on the sensing and calculation process.
 4. **Fold Structure Sensing**: monitoring multiple electrodes to idenfity specific origami gestures  groups are defined using binary for code optimisation. Each panel occupies a position in the binary string. In the case of the Kresling origami, the panels are arranged in columns of 8 panels, where each binary digit refers to the one or off state of one of 8 panels, with six thereof. A panel group is defined by a switching a panel "on" in the group. Using binary, a single panel group only occupies six bytes in memory, and it describes the on or off state for every panel in the instrument. Similar to angle or bend sensing, a panel group is generally seen as a gesture recognition protocol, however the integer output is also scaled from 0-254 for OSC or 0-127 for MIDI. 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/main
 **potential function mappings**
  
 - soft touch
@@ -54,9 +61,15 @@ Using the MPR121's touch register in addition to filtered and baseline data from
 - shape function
 	- alter a global parameter
 
+<<<<<<< HEAD
 ## PROTOCOL MIDI / OSC
 
 ## PROTOCOL MIDI / OSC
+=======
+# PROTOCOL
+
+## OSC
+>>>>>>> upstream/main
 
 |    Instrument                       | Channel [range]       |   Patch                                     | Channel [range] | Synth                 | Channel [range] |
 |:-------------------------------|:----------------------|:-------------------------|-----------------|-----------------------|-----------------|
@@ -95,9 +108,15 @@ Using the MPR121's touch register in addition to filtered and baseline data from
 | set scale                      | /scale/[majo/mino]    | **from instrument**      |                 |                       |                 |
 
 
+<<<<<<< HEAD
 ### MIDI
 
 ![Midi Communication diagram](publish/midi-communication@4x.png){width="95%"}
+=======
+## MIDI
+
+![Midi Communication diagram](images/midi-communication@4x.png){width="95%"}
+>>>>>>> upstream/main
 
 |    Instrument                  | Channel [range] |   Patch                  | Channel [range] | Synth                 | Channel [range] |
 |:-------------------------------|:----------------|:-------------------------|-----------------|-----------------------|-----------------|
@@ -142,4 +161,8 @@ Using the MPR121's touch register in addition to filtered and baseline data from
 | SF1                            | 0 [113] [0-5]   | **sends to instrument**  |                 |                       |                 |
 | Interval                       | 0 [114] [0-5]   | **sends to instrument**  |                 |                       |                 |
 | CDT                            | 0 [115] [0-5]   | **sends to instrument**  |                 |                       |                 |
+<<<<<<< HEAD
 | SF1                            | 0 [113] [0-5]   | **sends to instrument**  |                 |                       |                 |
+=======
+| SF1                            | 0 [113] [0-5]   | **sends to instrument**  |                 |                       |                 |
+>>>>>>> upstream/main
