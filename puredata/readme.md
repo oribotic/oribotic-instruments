@@ -11,8 +11,8 @@ Abstraction library
 
 The `oi` abstraction library is provided to wrap communication with the instrument, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). The main high-level abstractions are:
 
-* `oi.o.y8`: 8 panel yoshimura instrument serial OSC receiver
-* `oi.m.y8`: 8 panel yoshimura instrument MIDI receiver
+* `oi.o.instrument`: N-panel instrument serial OSC receiver
+* `oi.m.instrument`: N-panel instrument MIDI receiver
 
 The naming scheme follows: `oi.o.*` for OSC serial-specific and `oi.m.*` for MIDI-specific abstractions. Usage between either communication type is designed to be as similar as possible.
 
