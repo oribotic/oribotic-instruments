@@ -230,7 +230,7 @@ void debugMidi(char msg[12], uint8_t channel, uint8_t key, uint16_t value )
 
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
 {
-  uint8_t midi_channel = 1;
+  uint8_t midi_channel = 0;
   uint8_t attack_velocity = 127;
   uint8_t release_velocity = 0;
   uint8_t touchkey;
