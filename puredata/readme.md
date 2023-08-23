@@ -9,14 +9,7 @@ Very soon, we'll have desktop and iOS versions of each patch, these are all desk
 Abstraction library
 -------------------
 
-The `oi` abstraction library is provided to wrap communication with the instrument, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). The main high-level abstractions are:
-
-* `oi.o.instrument`: N-panel instrument serial OSC receiver
-* `oi.m.instrument`: N-panel instrument MIDI receiver
-
-The naming scheme follows: `oi.o.*` for OSC serial-specific and `oi.m.*` for MIDI-specific abstractions. Usage between either communication type is designed to be as similar as possible.
-
-Additionally, the lower-level abstractions can be utilized individually, if needed. For example, `oi.m.panel` can be used to receive control input for a single panel over MIDI.
+The `oi` abstraction library is provided to wrap communication with the instrument, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). See `oi/README.txt` for details.
 
 Puredata setup (Desktop)
 ------------------------
