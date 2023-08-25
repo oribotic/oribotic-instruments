@@ -3,8 +3,8 @@
 #ifndef INSTRUMENT_CONFIG_H
 #define INSTRUMENT_CONFIG_H
 
-#define MIDI 1
-#define OSC 0
+#define MIDI 0
+#define OSC 1
 
 #if MIDI
 #define INTERVALDELAY 5

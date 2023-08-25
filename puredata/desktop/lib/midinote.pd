@@ -1,4 +1,4 @@
-#N canvas 127 119 1527 642 12;
+#N canvas 127 119 394 529 12;
 #X obj 70 52 inlet;
 #X floatatom 137 243 5 0 0 0 - - - 0;
 #X text 173 242 midi note;

@@ -25,6 +25,8 @@ Install the following via Pd's built-in Help->Find externals...: comport, slip
 
 By default, they will be installed to ~/Pd/Documents/externals
 
+Note: If only using MIDI, the externals are not required.
+
 Mobile
 ------
 
