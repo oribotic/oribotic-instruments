@@ -5,7 +5,7 @@ _Why wait for a Holtzman drive to fold space when you can start folding sound, n
 
 Oribotic Instruments are multi-modal capacitive sensing instruments. They afford keypad style touch, pressure sensitive "soft touch" and capacitive sensing between electrode panels (rigid PCBs on flexible substrates such as textiles) otherwise known as _Fold Sensing_.
 
-![oribotic instruments multi-modal interations](images/multi-modal-composite@4x.png)
+![oricordion-logo-screen@4x](https://github.com/oribotic/oribotic-instruments/assets/6670535/0195ca17-a8ac-4a47-95b8-db6d01232ae0)
 
 Copyright (c) 2023 Matthew Gardiner
 
@@ -19,6 +19,8 @@ Description
 Our question for this work, What happens to our experience of space when we fold sound? is situated in our research into fundamental artistic methods for origami and robotics, following our central theme of Fold Sensing. Our conceptual approach is to invent foldable musical spaces rather than linear musical scores. The performer can explore the musical volume using choreographed folding paths and geometric gestures. 
 
 Technically, oribotic instruments are layered electronics and textiles. The main elements are a capacitive sensor array from printed circuit board electrodes crafted as kinetic origami structures. The fold angles are captured in real-time and conveyed through a normalisation algorithm that adjusts for the non-linear capacitive response to the fold angle. These parametrised folded structures offer new affordances to interact, play and perform by contracting and expanding the fold geometry.
+
+![oribotic instruments multi-modal interations](images/multi-modal-composite@4x.png)
 
 Structure
 ---------
@@ -50,6 +52,9 @@ An abstraction library and various templates and examples are provided both for 
 Attribution
 -----------
 
-This project is supported by a grant from ...
+Funded through the FWF Austrian Science Fund, PEEK Program, ORI*botics on the art and science of origami and robotics https://orilab.art
+Thanks to ongoing support from the Ars Electronica Futurelab https://ars.electronica.art/futurelab/
 
-_Funding footer image set here?_
+<img width="1920" alt="all-logos@2x" src="https://github.com/oribotic/oribotic-instruments/assets/6670535/2e1dc484-4993-4a09-85b9-a5d2924db968">
+
+
