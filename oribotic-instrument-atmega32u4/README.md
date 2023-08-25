@@ -9,7 +9,7 @@ Dependencies
 The project uses the following open source libraries:
 * [MPR121](https://github.com/BareConductive/mpr121): MPR121 capacitive touch sense IC (modified, included in this repo)
 * [OSC](https://github.com/CNMAT/OSC): (Open Sound Control) communication
-* [MIDIUSB](https://www.arduino.cc/reference/en/libraries/midiusb/): MIDI communication over USB
+* [MIDIUSB](https://github.com/arduino-libraries/MIDIUSB): MIDI communication over USB
 
 Install the following libraries via the Arduino IDE Library Manager: OSC, MIDIUSB
 
