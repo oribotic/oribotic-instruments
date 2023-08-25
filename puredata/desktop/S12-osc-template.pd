@@ -467,6 +467,10 @@
 #X obj 654 306 makefilename /%d;
 #X obj 587 274 unpack f f;
 #X obj 680 462 route 11 10 9 8 7 6 5 4 3 2 1 0;
+#X obj 591 86 s output-max;
+#X msg 591 55 255;
+#X obj 591 25 loadbang;
+#X text 633 56 OSC range is 0-255;
 #X connect 17 0 9 0;
 #X connect 17 0 8 0;
 #X connect 17 0 7 0;
@@ -526,6 +530,8 @@
 #X connect 78 9 7 0;
 #X connect 78 10 5 0;
 #X connect 78 11 9 0;
+#X connect 80 0 79 0;
+#X connect 81 0 80 0;
 #X coords 0 0 0.25 0.25 0 0 0;
 #X restore 1356 65 pd configure;
 #N canvas 72 25 760 553 oscpatching 0;

@@ -4,10 +4,12 @@
 
 #if OSC == 1
   #include "comms.osc.h"
+  #define TOUCH_HIGH 255
 #endif
 
 #if MIDI == 1
   #include "comms.midi.h"
+  #define TOUCH_HIGH 127
 #endif
 
 #if ORIGAMI==YOSHIMURA
@@ -348,7 +350,7 @@ void touchPlay(uint8_t key)
   {
     if (newtouch)
     {
-      send("d", key, note, 127);      // used to be t
+      send("d", key, note, TOUCH_HIGH);      // used to be t
       action = 1;
     }
   } 

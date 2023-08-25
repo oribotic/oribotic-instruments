@@ -8,6 +8,7 @@
 #X obj 190 119 abs;
 #X obj 190 60 r invert;
 #X obj 50 117 m_scale 0 127 0 1;
+#X obj 96 60 r output-max;
 #X connect 0 0 8 0;
 #X connect 2 0 4 0;
 #X connect 3 0 1 0;
@@ -18,3 +19,4 @@
 #X connect 7 0 2 1;
 #X connect 8 0 2 0;
 #X connect 8 0 3 0;
+#X connect 9 0 8 2;

@@ -25,26 +25,26 @@ Using the MPR121's touch register in addition to filtered and baseline data from
 
 |    Instrument                  | Channel [range]       |   Patch                  | Channel [range] | Synth                 | Channel [range] |
 |:-------------------------------|:----------------------|:-------------------------|-----------------|-----------------------|-----------------|
-| **sends** notes                | /d/[0-127] 0/1        | **receives** notes       | /d/[0-127] 0/   |                       |                 |
-| **sends** control              | /b/ /s/[0-127]        | **receives** control     |                 |                       |                 |   
+| **sends** notes                | /d id [0-255] 0/1     | **receives** notes       | /d id [0-255]   |                       |                 |
+| **sends** control              | /b /s id [0-255]      | **receives** control     |                 |                       |                 |
 | **send triggers**:             |                       | **forwards triggers**    |                 |                       |                 |
-| **touch**                      | /d/[0-127] 1/0        | **forwards** notes       | 1 [custom]      | **receives** notes    | 1 [0-127]       |
-| **bend**                       | /b/                   | **forwards** control     | 1 [custom]      | **receives** control  | 1 [0-127]       |
-| y8                             | /b/ [0-7]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |     
-| suki                           | /b/ [0-11]            | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| oricordion                     | /b/ [0-47]            | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| **soft touch**                 | /s/                   |                          |                 |                       |                 |
-| y8                             | /s/ [8-15]            | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| suki                           | /s/ [12-23]           | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| oricordion                     | /s/[48-95]            | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| **panel group**                | /s/                   |                          |                 |                       |                 |
-| y8                             | /g/ [0-x]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| suki                           | /g/ [0-x]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
-| oricordion                     | /g/ [0-x]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| **touch**                      | /d [0-127] 1/0        | **forwards** notes       | 1 [custom]      | **receives** notes    | 1 [0-127]       |
+| **bend**                       | /b                    | **forwards** control     | 1 [custom]      | **receives** control  | 1 [0-127]       |
+| y8                             | /b [0-7]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| suki                           | /b [0-11]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| oricordion                     | /b [0-47]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| **soft touch**                 | /s                    |                          |                 |                       |                 |
+| y8                             | /s [8-15]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| suki                           | /s [12-23]            | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| oricordion                     | /s [48-95]            | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| **panel group**                | /s                    |                          |                 |                       |                 |
+| y8                             | /g [0-x]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| suki                           | /g [0-x]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| oricordion                     | /g [0-x]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | **control ranges**             |                       |                          |                 |                       |                 |
-| y8 8 panels                    | 0 [0-15]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |       
-| suki 12 panels                 | 0 [0-23]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |       
-| oricordion  28 panels          | 0 [0-95]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |       
+| y8 8 panels                    | 0 [0-15]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| suki 12 panels                 | 0 [0-23]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
+| oricordion  28 panels          | 0 [0-95]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | **receives**                   | /set/                 | **sends to instrument**  |                 |                       |                 |
 | set Hard                       | /setKey/hard/[key]    | **sends to instrument**  |                 |                       |                 |
 | set Soft                       | /setKey/soft/[key]    | **sends to instrument**  |                 |                       |                 |
@@ -67,11 +67,11 @@ MIDI
 |    Instrument                  | Channel [range] |   Patch                  | Channel [range] | Synth                 | Channel [range] |
 |:-------------------------------|:----------------|:-------------------------|-----------------|-----------------------|-----------------|
 | **sends** notes                | 0  [0-127]      | **receives** notes       | 0 [0-127]       |                       |                 |
-| **sends** control              | 0  [0-95]       | **receives** control     | 0 [0-127]       |                       |                 |   
+| **sends** control              | 0  [0-95]       | **receives** control     | 0 [0-127]       |                       |                 |
 | **send triggers**:             |                 | **forwards triggers**    |                 |                       |                 |
 | **touch**                      | noteon/noteoff  | **forwards** notes       | 1 [0-127]       | **receives** notes    | 1 [0-127]       |
 | **bend**                       | control, value  |                          |                 |                       |                 |
-| y8                             | 0 [0-7]         | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |     
+| y8                             | 0 [0-7]         | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | suki                           | 0 [0-11]        | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | oricordion                     | 0 [0-47]        | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | **soft touch**                 | control, value  |                          |                 |                       |                 |
@@ -79,13 +79,13 @@ MIDI
 | suki                           | 0 [12-23]       | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | oricordion                     | 0 [48-95]       | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | **control ranges**             |                 |                          |                 |                       |                 |
-| y8 8 panels                    | 0 [0-15]        | **sends to instrument**  |                 |                       |                 |       
-| suki 12 panels                 | 0 [0-23]        | **sends to instrument**  |                 |                       |                 |       
-| oricordion  28 panels          | 0 [0-95]        | **sends to instrument**  |                 |                       |                 |       
+| y8 8 panels                    | 0 [0-15]        | **sends to instrument**  |                 |                       |                 |
+| suki 12 panels                 | 0 [0-23]        | **sends to instrument**  |                 |                       |                 |
+| oricordion  28 panels          | 0 [0-95]        | **sends to instrument**  |                 |                       |                 |
 | **panel group**                |                 |                          |                 |                       |                 |
-| y8 8 panels                    | 0 [100-x]       | **sends to instrument**  |                 |                       |                 |       
-| suki 12 panels                 | 0 [100-x]       | **sends to instrument**  |                 |                       |                 |       
-| oricordion  28 panels          | 0 [100-x]       | **sends to instrument**  |                 |                       |                 |       
+| y8 8 panels                    | 0 [100-x]       | **sends to instrument**  |                 |                       |                 |
+| suki 12 panels                 | 0 [100-x]       | **sends to instrument**  |                 |                       |                 |
+| oricordion  28 panels          | 0 [100-x]       | **sends to instrument**  |                 |                       |                 |
 | **receives**                   | 0 [111]         | **sends to instrument**  |                 |                       |                 |
 | set Hard                       | 0 [111] 0       | **sends to instrument**  |                 |                       |                 |
 | set Soft                       | 0 [111] 5       | **sends to instrument**  |                 |                       |                 |

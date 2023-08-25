@@ -605,6 +605,10 @@
 #X obj 55 67 spigot;
 #X obj 94 48 tgl 15 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 761 512 route 11 10 9 8 7 6 5 4 3 2 1 0;
+#X obj 591 86 s output-max;
+#X msg 591 55 255;
+#X obj 591 25 loadbang;
+#X text 633 56 OSC range is 0-255;
 #X connect 1 0 0 2;
 #X connect 3 0 0 3;
 #X connect 5 0 110 0;
@@ -698,6 +702,8 @@
 #X connect 112 9 29 0;
 #X connect 112 10 27 0;
 #X connect 112 11 31 0;
+#X connect 114 0 113 0;
+#X connect 115 0 114 0;
 #X coords 0 0 0.25 0.25 0 0 0;
 #X restore 1116 65 pd configure;
 #N canvas 34 77 753 484 oscpatching 0;
