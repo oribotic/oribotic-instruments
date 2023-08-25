@@ -7,6 +7,8 @@ Oribotic Instruments are multi-modal capacitive sensing instruments. They afford
 
 Copyright (c) 2023 Matthew Gardiner
 
+Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox, Alexandre Bezri, Anna Oelsch
+
 MIT License
 
 Description
