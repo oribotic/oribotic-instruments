@@ -2,15 +2,19 @@
 
 firmware
 * fixed: a couple build errors
+* fixed: inconsistent panel ids between OSC and MIDI
 * added: MODE_SOFT_VELOCITY for sending /s data via midi velocity for /d
 * added: soft touch to send function
 * added: sending control signals to the next count of panels up. i.e: from 8-15 for Y8
 * added: receive handling for float arguments, this improves flexibility when working with pd's built-in osc objects
-* changed: OSC messaging protocol for instrument signals /d/0 -> /d 0rg
+* changed: OSC messaging protocol for instrument signals ie. /d/0 -> /d 0
+* changed: OSC d range back to 0-255 for consistency with b and s
 * changed: volume scaling from input signal from 8bit to 7bits for midi / osc compatibility
 * changed: inverted the velocity logic for /s, now 127 is hard and 0 is soft
 * changed: send /key and /n with id as a
 * changed: check range when setting mode, scale, & root
+* changed: MPR library sources now in src/MPR121 subdir
+* removed: MIDIUSB sources from project in favor of installing via Arduino IDE
 
 puredata
 * puredata: added oi abstraction library
@@ -20,6 +24,7 @@ puredata
 * changed: send bend -> send /b
 * changed: ctrlin to numerate each /b or /s signal for clarity in the patch
 * changed: various puredata template improvements and bugfixes
+* removed: template osc and rjlib external dependencies
 
 docs
 * added: pd vanilla setup dependency and install steps
