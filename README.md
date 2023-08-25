@@ -5,7 +5,7 @@ _Why wait for a Holtzman drive to fold space when you can start folding sound, n
 
 Oribotic Instruments are multi-modal capacitive sensing instruments. They afford keyboard touch, pressure sensitive "soft touch" and mutual capacitive sensing between panels, otherwise known as Fold Sensing.
 
-![oribotic instruments multi-modal interations](multi-modal-composite@4x.png)
+![oribotic instruments multi-modal interations](images/multi-modal-composite@4x.png)
 
 Copyright (c) 2023 Matthew Gardiner
 
@@ -14,7 +14,7 @@ MIT License
 Description
 -----------
 
-![oribotic instruments](oricordion-in-hand-oribotic-instrumentsmatthew-gardiner_2000x1000.webp)
+![oribotic instruments](images/oricordion-in-hand-oribotic-instrumentsmatthew-gardiner_2000x1000.webp)
 
 Our question for this work, What happens to our experience of space when we fold sound? is situated in our research into fundamental artistic methods for origami and robotics, following our central theme of Fold Sensing. Our conceptual approach is to invent foldable musical spaces rather than linear musical scores. The performer can explore the musical volume using choreographed folding paths and geometric gestures. 
 
