@@ -2,7 +2,6 @@
 // Kresling 48 panel instrument
 
 #include "ORICORD.h"
-#include <Arduino.h>
 
 #define SOFT_LOW_OFFSET 25
 #define LO_HARD_OFFSET 25

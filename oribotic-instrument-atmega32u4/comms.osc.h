@@ -26,12 +26,19 @@
 
 // --------------------------------------------------------------------    FUNCTION PROTOTYPES
 
+// returns true if arg at index is an int or a float
+bool isNumber(OSCMessage &msg, int arg);
+
+// returns int or float value of arg at index as an int
+int getNumber(OSCMessage &msg, int arg);
+
 void rxOSC();
 //void rawOSC(uint8_t key);
 //void playOSC(uint8_t key);
 //void touchedPlayOSC(uint8_t key);
 void getNotes();
 void sendOSC(char msg_str[20], uint16_t arg1, uint16_t arg2 = 3333);
+void sendOSC(char msg_str[20], uint8_t key, uint16_t arg1, uint16_t arg2 = 3333);
 void setRoot(OSCMessage &msg);
 void setMode(OSCMessage &msg);
 void setKeyProp(OSCMessage &msg, char param[4]);

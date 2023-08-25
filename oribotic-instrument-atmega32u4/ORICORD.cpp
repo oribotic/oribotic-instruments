@@ -1,7 +1,5 @@
-#include <OSCMessage.h> 
-#include "MPR121.h"
 #include "ORICORD.h"
-#include "instrument_config.h"
+#include <OSCMessage.h> 
 #include "music.scales.h"
 
 #if OSC == 1
@@ -208,9 +206,10 @@ uint16_t mapSoft(uint8_t key, uint16_t filtered)
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state )
 {
   char msg_str[12];
-  sprintf(msg_str, "/%s/%d", channel, key);
-  // /d/1 0 68
-  sendOSC(msg_str, state, note);
+  sprintf(msg_str, "/%s", channel);
+  // OLD /d/1 0 68
+  // NEW /d 1 0 68
+  sendOSC(msg_str, key, state, note);
 }
 
 #endif
@@ -229,7 +228,7 @@ void debugMidi(char msg[12], uint8_t channel, uint8_t key, uint16_t value )
 
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
 {
-  uint8_t midi_channel = 1;
+  uint8_t midi_channel = 0;
   uint8_t attack_velocity = 127;
   uint8_t release_velocity = 0;
   uint8_t touchkey;
@@ -513,9 +512,9 @@ void setBendSingleKey(uint8_t key, char param[4])
     orikeys[key].bendHI = val;
   }
   #if OSC == 1
-    sprintf(chan, "/key/%s/%d", param, key);
+    sprintf(chan, "/key/%s", param);
     //Serial.println(chan);
-    sendOSC(chan, val);
+    sendOSC(chan, key, val);
   #else
     if (mode==MODE_SERIAL_DEBUG || mode==MODE_SERIAL_DEBUG_RAW)
     {
@@ -817,8 +816,8 @@ void setupMPR()
 
   void setPanelGroup(OSCMessage &msg)
   {
-    if (msg.isInt(0)) {
-      bool val = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+      bool val = getNumber(msg, 0);
       // send feedback to PD
       if (val == 1)
       {

@@ -38,9 +38,9 @@ extern uint8_t intervaldelay;
 #define MODE_NORMALISED 3 // works for midi and osc
 #define MODE_RAW_PLUS_NORMALISED 4 // only works on osc 
 #define MODE_TOUCH_PLAY 5 // works on midi and osc - default mode
-#define MODE_SOFT_VELOCITY 6 // works on midi and osc - default mode
-// #define MODE_TOUCH_PLAY 6
+#define MODE_SOFT_VELOCITY 6 // works on midi and osc
 //#define MODE_SERIAL_DEBUG_BYTES 5 // no longer used 
+#define MAXMODE 6 // max allowed mode index
 
 #if ORIGAMI==YOSHIMURA
     #include "instrument_Y8.h"
