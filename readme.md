@@ -1,35 +1,51 @@
-# oribotic instrument
+Oribotic Instruments
+====================
 
-the arduino has too little memory to code for both OSC and MIDI, so you have to choose one, and one instrument configuration
+_One line blurb for this project._
 
-## building for different modes
+_Maybe a smaller logo or image_.
 
-see instrument_config.h
+Copyright (c) 2023 Matthew Gardiner
 
-The top section of this file has two defined variables to change for different builds
+MIT License
 
-This will run in MIDI mode
-```
-#define MIDI 1
-#define OSC 0
-```
+Description
+-----------
 
+_Maybe a good picture._
 
-This will run in OSC mode
-```
-#define MIDI 0
-#define OSC 1
-```
+Abstract or project paragraph or two. Not too much but longer than a blurb...
 
-A bit further down in the file is:
+Structure
+---------
 
-```
-#define KRESLING 1
-#define YOSHIMURA 2
-#define SUKI 3
-#define ORIGAMI YOSHIMURA
-```
-update the last line, to KRESLING, YOSHIMURA or SUKI to suit the build of your instrument
+* `oribotic-instrument-atmega32u4`: instrument Arduino firmware
+* `puredata`: [Puredata](https://puredata.info) abstraction library and templates
 
+Installation & Build
+--------------------
 
+For info on building and configuring the Ardunio firmware, see `oribotic-instrument-atmega32u4/README.md`
 
+Usage
+-----
+
+Communication of the instrument with host systems is either via OSC (Open Sound Control) messages over a serial port *or* MIDI. The `comms-spec.md` markdown file lists the messaging specification for both types. Any software that can connect to a serial port or send/recieve MIDI messages should be able to receive from an Oribotic instrument.
+
+Each foldable instrument is composed of a number of panels (8, 12, or 48) which are capcitively touch-sensitive and send the following for each panel in realtime:
+* digital touch: on/off touch events
+* bend: bend amount to the adjacent panel between unfolded and folded states (requires calibration)
+* soft touch: amount of capcitive touch (think proximity and area/size)
+
+As the instrument can be folded in an open-ended manner, calibration is required to send the bend low and high states: folded and unfolded, respectively. For instance, an 8 panel instrument could be folded in half, crosswise, in an origami pattern, etc the user only needs to tell the instrument when it is folded and unfolded. Panel bend values are then scaled to match.
+
+### Puredata
+
+An abstraction library and various templates and examples are provided both for the open-source [Puredata](https://puredata.info) computer music environment. 
+
+Attribution
+-----------
+
+This project is supported by a grant from ...
+
+_Funding footer image set here?_
