@@ -29,7 +29,7 @@ Structure
 Installation & Build
 --------------------
 
-For info on building and configuring the Ardunio firmware, see `oribotic-instrument-atmega32u4/README.md`
+For info on building and configuring the Arduino firmware, see `oribotic-instrument-atmega32u4/README.md`
 
 Usage
 -----
@@ -39,7 +39,7 @@ Communication of the instrument with host systems is either via OSC (Open Sound 
 Each foldable instrument is composed of a number of panels (8, 12, or 48) which are capcitively touch-sensitive and send the following for each panel in realtime:
 * digital touch: on/off touch events
 * bend: bend amount to the adjacent panel between unfolded and folded states (requires calibration)
-* soft touch: amount of capcitive touch (think proximity and area/size)
+* soft touch: amount of capacitive touch (think proximity and area/size)
 
 As the instrument can be folded in an open-ended manner, calibration is required to send the bend low and high states: folded and unfolded, respectively. For instance, an 8 panel instrument could be folded in half, crosswise, in an origami pattern, etc the user only needs to tell the instrument when it is folded and unfolded. Panel bend values are then scaled to match.
 
