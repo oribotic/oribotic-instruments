@@ -9,7 +9,7 @@ Copyright (c) 2023 Matthew Gardiner
 
 MIT License
 
-Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox, Alexandre Bezri, Anna Oelsch
+Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox https://danomatika.com, Alexandre Bezri, Anna Oelsch
 
 Description
 -----------
