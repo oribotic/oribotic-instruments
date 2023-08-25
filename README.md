@@ -7,9 +7,9 @@ Oribotic Instruments are multi-modal capacitive sensing instruments. They afford
 
 Copyright (c) 2023 Matthew Gardiner
 
-Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox, Alexandre Bezri, Anna Oelsch
-
 MIT License
+
+Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox, Alexandre Bezri, Anna Oelsch
 
 Description
 -----------
@@ -53,7 +53,9 @@ Attribution
 -----------
 
 Funded through the FWF Austrian Science Fund, PEEK Program, ORI*botics on the art and science of origami and robotics https://orilab.art
-Thanks to ongoing support from the Ars Electronica Futurelab https://ars.electronica.art/futurelab/
+Thank you to the Ars Electronica Futurelab https://ars.electronica.art/futurelab/
+Thank you to [Josh Gardiner](https://github.com/NeuralSpaz) for pcb reviews and for being an awesome bro!
+
 
 ![attribution logos](https://github.com/oribotic/oribotic-instruments/assets/6670535/1b0b8847-12c4-4f32-a9cf-da88fbb42927)
 
