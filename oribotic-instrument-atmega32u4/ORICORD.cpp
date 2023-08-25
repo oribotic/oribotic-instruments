@@ -1,7 +1,5 @@
-#include <OSCMessage.h> 
-#include "MPR121.h"
 #include "ORICORD.h"
-#include "instrument_config.h"
+#include <OSCMessage.h> 
 #include "music.scales.h"
 
 #if OSC == 1

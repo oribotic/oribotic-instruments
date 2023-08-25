@@ -2,7 +2,6 @@
 // Yoshimura 8 panel instrument
 
 #include "ORICORD.h"
-#include <Arduino.h>
 
 #define SOFT_LOW_OFFSET 5
 #define LO_HARD_OFFSET 50

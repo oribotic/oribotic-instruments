@@ -1,6 +1,4 @@
-#include <Arduino.h>
 #include "ORICORD.h"
-#include "instrument_config.h"
 
 uint8_t intervaldelay = INTERVALDELAY;
 

@@ -1,4 +1,4 @@
-#include "MPR121.h"
+#include "src/MPR121/MPR121.h"
 #include <Wire.h>
 
 // BASIC INSTRUMENT CONFIG 

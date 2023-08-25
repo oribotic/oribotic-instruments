@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 #include <Arduino.h>
-#include "MPR121.h"
+#include "src/MPR121/MPR121.h"
 #include <Wire.h>
 #include "instrument_config.h"
 

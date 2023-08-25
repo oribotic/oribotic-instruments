@@ -1,7 +1,3 @@
-#include <Arduino.h>
-#include <OSCMessage.h> 
-#include "MPR121.h"
-#include "instrument_config.h"
 #include "ORICORD.h"
 #include "comms.osc.h"
 #include "music.scales.h"

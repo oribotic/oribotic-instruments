@@ -6,7 +6,7 @@
 #include <OSCMessage.h> 
 #include "MIDIUSB.h"
 #include "MIDIUSB_Defs.h"
-#include "MPR121.h"
+#include "src/MPR121/MPR121.h"
 #include "ORICORD.h"
 #include "music.scales.h"
 
