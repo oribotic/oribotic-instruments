@@ -1,7 +1,7 @@
 oi abstraction library
 ======================
 
-The oi abstraction library is provided to wrap communication with oribotic instruments, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). The main high-level abstractions are:
+The oi abstraction library is provided to wrap communication with Oribotic instruments, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). The main high-level abstractions are:
 
 * oi.o.instrument: N-panel instrument serial OSC receiver
 * oi.m.instrument: N-panel instrument MIDI receiver
@@ -30,4 +30,4 @@ Mobile
 
 Developed for PdParty: http://danomatika.com/code/pdparty
 
-For using an oribotic instrument with PdParty (iOS) the instrument firmware should be compiled for MIDI communication. Receive fomr the instrument using the "oi.m" abstractions.
+For using an Oribotic instrument with PdParty (iOS) the instrument firmware should be compiled for MIDI communication. Receive from the instrument using the "oi.m" abstractions.

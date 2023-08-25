@@ -1,0 +1,34 @@
+0.2.0: 2023 Aug 25
+
+firmware
+* fixed: a couple build errors
+* added: MODE_SOFT_VELOCITY for sending /s data via midi velocity for /d
+* added: soft touch to send function
+* added: sending control signals to the next count of panels up. i.e: from 8-15 for Y8
+* added: receive handling for float arguments, this improves flexibility when working with pd's built-in osc objects
+* changed: OSC messaging protocol for instrument signals /d/0 -> /d 0rg
+* changed: volume scaling from input signal from 8bit to 7bits for midi / osc compatibility
+* changed: inverted the velocity logic for /s, now 127 is hard and 0 is soft
+* changed: send /key and /n with id as a
+* changed: check range when setting mode, scale, & root
+
+puredata
+* puredata: added oi abstraction library
+* added: mode 6 for MODE_SOFT_VELOCITY
+* changed: volume scaling from 0-255 to 0-127
+* changed: send soft -> send /s
+* changed: send bend -> send /b
+* changed: ctrlin to numerate each /b or /s signal for clarity in the patch
+* changed: various puredata template improvements and bugfixes
+
+docs
+* added: pd vanilla setup dependency and install steps
+* added: commnication spec info markdown info and diagram
+* added: readme sections and changelog
+
+other
+* added: Makefile with oi-zip target to create oi abs library release zips
+
+0.1.0: 2023 Aug 14
+
+initial alpha: arduino project & puredata templates

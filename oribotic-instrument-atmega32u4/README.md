@@ -1,36 +1,54 @@
-# Oribotic instruments Arduino project
+Oribotic Instruments Arduino project
+=====================================
 
 Arduino based firmware for Oribotic instruments
 
-## Communication type
+Dependencies
+------------
 
-Communication to the host system can be either OSC serial or MIDI:
+The project uses the following open source libraries:
+* [MPR121](https://github.com/BareConductive/mpr121): MPR121 capacitive touch sense IC (modified, included in this repo)
+* [OSC](https://github.com/CNMAT/OSC): (Open Sound Control) communication
+* [MIDIUSB](https://www.arduino.cc/reference/en/libraries/midiusb/): MIDI communication over USB
 
-* OSC serial: Open Sound Control-style messaging using the SLIP protocol over a serial port
-* MIDI: 
+Install the following libraries via the Arduino IDE Library Manager: OSC, MIDIUSB
 
-The communication type is set when building the firmware and cannot be changed at runtime.
+Configuration
+-------------
 
-See `comms-spec.md` for messaging details.
+Configuration is set via defines at the top of `instrument_config.h`
 
-## Instrument type
+Important compile-time settings are:
 
-Available instrument types are based on the number of touch panels. Naming is based on origami fold types.
+* `OSC`: 0 - disable, 1 - build with OSC serial communication
+* `MIDI`: 0 - disable, 1 - build with MIDI communication
+* `DEBUG_LEVEL`: 0 - off, 1 - error, 2 - info, 3 - debug
+* `ORIGAMI`: YOSHIMURA - 8 panel, SUKI - 12 panel, KRESLING - 48 panel 
+* `ROOTNOTE`: root MIDI note
 
-* yoshimura: 8 panels
-* suki: 12 panels
-* kresling: 48 panels
+The Arduino has too little memory for both OSC and MIDI communication, so you have to choose one and one only.
 
-The communication type is set when building the firmware and cannot be changed at runtime.
+For example, this will run in MIDI mode:
 
-## Configuration
+~~~C
+#define MIDI 1
+#define OSC 0
+~~~
 
-Basic configuration can be set in `instrument_config.h`. Important compile-time settings are:
+This will run in OSC mode:
 
-* OSC: 0 - disable, 1 - build with OSC serial communication
-* MIDI: 0 - disable, 1 - build with MIDI communication
-* DEBUG_LEVEL: 0 - off, 1 - error, 2 - info, 3 - debug
-* ORIGAMI: YOSHIMURA - 8 panel, SUKI - 12 panel, KRESLING - 48 panel 
-* ROOTNOTE: root MIDI note
+~~~C
+#define MIDI 0
+#define OSC 1
+~~~
 
-_Note: Only a single communication type should be enabled when building, ie. OSC 1 and MIDI 1 **not** OSC 1 and MIDI 1, etc._
+A bit further down in the file is:
+
+~~~C
+#define KRESLING 1
+#define YOSHIMURA 2
+#define SUKI 3
+#define ORIGAMI YOSHIMURA
+~~~
+
+Update the last line, to KRESLING, YOSHIMURA or SUKI to suit the build of your instrument.
