@@ -4,5 +4,4 @@
 .DS_Store
 
 # VSCode
-oribotic-instrument-atmega32u4/.vscode/arduino.json
-
+.vscode
