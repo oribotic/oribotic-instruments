@@ -25,10 +25,10 @@ Using the MPR121's touch register in addition to filtered and baseline data from
 
 |    Instrument                  | Channel [range]       |   Patch                  | Channel [range] | Synth                 | Channel [range] |
 |:-------------------------------|:----------------------|:-------------------------|-----------------|-----------------------|-----------------|
-| **sends** notes                | /d id [0-255] 0/1     | **receives** notes       | /d id [0-255]   |                       |                 |
-| **sends** control              | /b /s id [0-255]      | **receives** control     |                 |                       |                 |
+| **sends** notes                | /d [0-255] 0/1        | **receives** notes       | /d [0-255]      |                       |                 |
+| **sends** control              | /b /s [0-255]         | **receives** control     |                 |                       |                 |
 | **send triggers**:             |                       | **forwards triggers**    |                 |                       |                 |
-| **touch**                      | /d [0-127] 1/0        | **forwards** notes       | 1 [custom]      | **receives** notes    | 1 [0-127]       |
+| **touch**                      | /d [0-255] 1/0        | **forwards** notes       | 1 [custom]      | **receives** notes    | 1 [0-127]       |
 | **bend**                       | /b                    | **forwards** control     | 1 [custom]      | **receives** control  | 1 [0-127]       |
 | y8                             | /b [0-7]              | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
 | suki                           | /b [0-11]             | **forwards** control     | 1 [custom]      | **receives** control  | 1 [custom]      |
