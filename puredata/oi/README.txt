@@ -3,8 +3,8 @@ oi abstraction library
 
 The oi abstraction library is provided to wrap communication with Oribotic instruments, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). The main high-level abstractions are:
 
-* oi.o.instrument: N-panel instrument serial OSC receiver
-* oi.m.instrument: N-panel instrument MIDI receiver
+* oi.o.instrument: N-panel instrument serial OSC receiver, output range 0-255
+* oi.m.instrument: N-panel instrument MIDI receiver, output range 0-127
 
 The naming scheme follows: "oi.o." for OSC serial-specific and "oi.m." for MIDI-specific abstractions. Usage between either communication type is designed to be as similar as possible.
 
