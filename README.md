@@ -25,7 +25,7 @@ Structure
 Installation & Build
 --------------------
 
-For info on building and configuring the Ardunio firmware, see `oribotic-instrument-atmega32u4/README.md`.
+For info on building and configuring the Ardunio firmware, see `oribotic-instrument-atmega32u4/README.md`
 
 Usage
 -----
