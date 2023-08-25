@@ -5,8 +5,6 @@ _Why wait for a Holtzman drive to fold space when you can start folding sound, n
 
 Oribotic Instruments are multi-modal capacitive sensing instruments. They afford keypad style touch, pressure sensitive "soft touch" and capacitive sensing between electrode panels (rigid PCBs on flexible substrates such as textiles) otherwise known as _Fold Sensing_.
 
-![oricordion-logo-screen@4x](https://github.com/oribotic/oribotic-instruments/assets/6670535/0195ca17-a8ac-4a47-95b8-db6d01232ae0){width:25%}
-
 Copyright (c) 2023 Matthew Gardiner
 
 MIT License
