@@ -8,6 +8,9 @@
 #include "ORICORD.h"
 #include "music.scales.h"
 
+  void setMode(uint8_t value);
+  void setScale(uint8_t value);
+
   //------------------------------------------------------------------- IF MIDI
   void rxMIDI() {
     // 0x0B is control
@@ -159,7 +162,7 @@
     Serial.println(note);
   }
 
-  void setMode(uint8_t mode)
+  void setMode(uint8_t value)
   {
     if (value > MAXMODE)
     {
@@ -170,7 +173,7 @@
 
   void setMIDIRoot(uint8_t newroot)
   {
-    if (val < 0 || val > 127)
+    if (newroot < 0 || newroot > 127)
     {
       return;
     }
