@@ -1,8 +1,19 @@
-#include <Arduino.h>
-// only switch one on at a time
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #ifndef INSTRUMENT_CONFIG_H
 #define INSTRUMENT_CONFIG_H
 
+#include <Arduino.h>
+
+// only switch one on at a time
 #define MIDI 1
 #define OSC 0
 
@@ -53,5 +64,3 @@ extern uint8_t intervaldelay;
 #endif  
 
 #endif
-
-

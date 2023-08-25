@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
+
 // instrument definion for K48 
 // Kresling 48 panel instrument
 
@@ -17,4 +28,3 @@
 #define LED3 8
 #define BTN_COUNT 3
 #define PANELCOUNT 48
-

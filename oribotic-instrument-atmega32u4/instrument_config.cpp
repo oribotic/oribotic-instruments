@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #include "ORICORD.h"
 
 uint8_t intervaldelay = INTERVALDELAY;
@@ -219,8 +229,5 @@ uint8_t intervaldelay = INTERVALDELAY;
         {.pin = 7,  .panel = 0, .note = 8, .hard = 1024, .soft = 0, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0},  // 10
         {.pin = 6,  .panel = 0, .note = 9, .hard = 1024, .soft = 0, .bendLO = 100, .bendHI = 1023, .state = 0, .last = 0}  // 11
     };
-
-
-
 
 #endif 
