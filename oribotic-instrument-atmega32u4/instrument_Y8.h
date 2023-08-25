@@ -1,8 +1,18 @@
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
+
 // instrument definion for Y8 
 // Yoshimura 8 panel instrument
 
 #include "ORICORD.h"
-#include <Arduino.h>
 
 #define SOFT_LOW_OFFSET 5
 #define LO_HARD_OFFSET 50

@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #include "instrument_config.h"
 
 #if MIDI == 1
@@ -6,7 +16,7 @@
 #include <OSCMessage.h> 
 #include "MIDIUSB.h"
 #include "MIDIUSB_Defs.h"
-#include "MPR121.h"
+#include "src/MPR121/MPR121.h"
 #include "ORICORD.h"
 #include "music.scales.h"
 

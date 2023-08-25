@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #include "instrument_config.h"
 
 #if MIDI == 1
@@ -7,6 +17,9 @@
 #include "comms.midi.h"
 #include "ORICORD.h"
 #include "music.scales.h"
+
+  void setMode(uint8_t value);
+  void setScale(uint8_t value);
 
   //------------------------------------------------------------------- IF MIDI
   void rxMIDI() {
@@ -78,7 +91,7 @@
              }
              break;
             case 110:               // set mode
-              mode = value;
+              setMode(value);
               controlChange(0, 110, value); // send feedback on same channel
               // Serial.println(mode);
               break;
@@ -159,9 +172,22 @@
     Serial.println(note);
   }
 
+  void setMode(uint8_t value)
+  {
+    if (value > MAXMODE)
+    {
+      return;
+    }
+    mode = value;
+  }
+
   void setMIDIRoot(uint8_t newroot)
   {
-  rootNote = newroot;
+    if (newroot < 0 || newroot > 127)
+    {
+      return;
+    }
+    rootNote = newroot;
   }
 
 #if SETUP_FUNCTIONS == 1

@@ -1,3 +1,7 @@
+*.zip
+
 # macOS
 .DS_Store
-oribotic-instrument-atmega32u4/.vscode/arduino.json
+
+# VSCode
+.vscode
