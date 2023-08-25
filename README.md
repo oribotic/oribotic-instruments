@@ -55,6 +55,7 @@ Attribution
 Funded through the FWF Austrian Science Fund, PEEK Program, ORI*botics on the art and science of origami and robotics https://orilab.art
 Thanks to ongoing support from the Ars Electronica Futurelab https://ars.electronica.art/futurelab/
 
-<img width="1920" alt="all-logos@2x" src="https://github.com/oribotic/oribotic-instruments/assets/6670535/2e1dc484-4993-4a09-85b9-a5d2924db968">
+<img width="1160" alt="all-logos@2x-black" src="https://github.com/oribotic/oribotic-instruments/assets/6670535/89986f1d-d4de-4f5f-8f02-59a3e63d040d">
+
 
 
