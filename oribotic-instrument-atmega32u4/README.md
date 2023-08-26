@@ -55,6 +55,7 @@ Update the last line, to KRESLING, YOSHIMURA or SUKI to suit the build of your i
 
 Associated config files for each instrument type:
 
-KRESLING 48 panel - see instrument_K48.h
-SUKI 12 panel - see instrument_S12.h
-YOSHIMURA 8 panel - see instrument_Y8.h
+* **KRESLING 48 panel** - see instrument_K48.h
+* **SUKI 12 panel** - see instrument_S12.h
+* **YOSHIMURA 8 panel** - see instrument_Y8.h
+
