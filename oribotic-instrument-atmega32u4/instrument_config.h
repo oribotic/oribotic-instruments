@@ -34,7 +34,8 @@ extern uint8_t intervaldelay;
 #define KRESLING 1
 #define YOSHIMURA 2
 #define SUKI 3
-#define ORIGAMI YOSHIMURA
+#define MAYWA 4
+#define ORIGAMI MAYWA
 
 #define SOFT_FILTER_LIMIT 200
 
@@ -61,6 +62,9 @@ extern uint8_t intervaldelay;
 #endif  
 #if ORIGAMI==SUKI
     #include "instrument_S12.h"
+#endif  
+#if ORIGAMI==MAYWA
+    #include "instrument_M9.h"
 #endif  
 
 #endif
