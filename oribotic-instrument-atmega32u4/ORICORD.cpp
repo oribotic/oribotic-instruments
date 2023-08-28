@@ -1,15 +1,25 @@
-#include <OSCMessage.h> 
-#include "MPR121.h"
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #include "ORICORD.h"
-#include "instrument_config.h"
+#include <OSCMessage.h> 
 #include "music.scales.h"
 
 #if OSC == 1
   #include "comms.osc.h"
+  #define TOUCH_HIGH 255
 #endif
 
 #if MIDI == 1
   #include "comms.midi.h"
+  #define TOUCH_HIGH 127
 #endif
 
 #if ORIGAMI==YOSHIMURA
@@ -134,118 +144,6 @@ void raw(uint8_t key)
     send("r", key, note, filtered);    
 }
 
-void play(uint8_t key)
-{
-    uint8_t note = orikeys[key].note + rootNote;
-    uint8_t pin;
-    uint8_t panel = orikeys[key].panel;
-    uint8_t state = orikeys[key].state;
-    uint16_t last = orikeys[key].last;
-    uint16_t filtered;
-    long normalised;
-    bool touched;
-    bool released;
-
-  #if REVERSED
-    pin = reverse_logical[orikeys[key].pin];
-  #else
-    pin = orikeys[key].pin;
-  #endif
-
-    // filtered data
-    filtered = MPRpanels[panel].mpr->getFilteredData(pin);
-    //touched = MPRpanels[panel].mpr->isNewTouch(pin);
-    //released = MPRpanels[panel].mpr->isNewRelease(pin);
-
-    byte action; 
-    // check the filtered data to decide which midiaction to take
-    action = getActionState(key, filtered);
-
-    // update state orikeys table
-    orikeys[key].state = action;
-    orikeys[key].last = filtered;
-
-    char msg_str[12];
-    uint16_t arg_state;
-    uint16_t arg_note = 3333;
-
-    switch (action)
-    {
-    case 0:
-      // off
-      if (state != 0)
-      {
-        send("d", key, note, 0);
-        //sendOSC(msg_str, arg_state, arg_note);
-      } // send only on toggle
-      break;
-    case 1:
-      // hard
-      if (state != 1)
-      {
-        send("d", key, note, 1);
-      } // send only on toggle
-      break;
-    case 2:
-      // soft
-      if (state != 2)
-      {
-        // send digital note ON if this is the first setting of soft touch
-        send("d", key, note, 1);
-        //arg_note = 3333;
-      }
-      // soft touch analysis
-      sprintf(msg_str, "/s/%d", key);
-      arg_state = filtered;
-      if (filtered < orikeys[key].hard)
-      {
-        filtered = orikeys[key].hard;
-      }
-      if (filtered > orikeys[key].bendLO)
-      {
-        filtered = orikeys[key].bendLO;
-      }
-      
-      normalised = map(filtered, orikeys[key].hard, orikeys[key].bendLO, 0, 255);
-      arg_state = bendLinear[normalised]; // convert normal value to linear value
-      #if MIDI == 1
-        arg_state = arg_state/2;
-      #endif
-      if (filtered != last)
-      {
-        send("s", key, note, arg_state);
-        //sendOSC(msg_str, arg_state, arg_note); // send every time
-      }
-      break;
-    case 3:
-    case 4:
-      if (state != 3)
-      {
-        // send digital note OFF if this is the first setting of BEND
-
-        send("d", key, note, 0);
-      }
-      // bendHI <> bendLO
-
-      // normalise the key output value between bendLO and bendHI
-      if (filtered < orikeys[key].bendLO)
-        filtered = orikeys[key].bendLO;
-      if (filtered > orikeys[key].bendHI)
-        filtered = orikeys[key].bendHI;
-
-      normalised = map(filtered, orikeys[key].bendLO, orikeys[key].bendHI, 0, 255);
-      arg_state = bendLinear[normalised]; // convert normal value to linear value
-      #if MIDI == 1
-        arg_state = arg_state/2;
-      #endif
-      if (filtered != last)
-      {
-        send("b", key, note, arg_state);
-      }
-      break;
-    }
-} 
-
 uint16_t mapSoft(uint8_t key, uint16_t filtered)
 {
   uint8_t pin = orikeys[key].pin;
@@ -285,7 +183,7 @@ uint16_t mapSoft(uint8_t key, uint16_t filtered)
   }
 
   // get a value for our 
-  normalised = longmap(constrained, orikeys[key].hard, orikeys[key].soft, 0, ARR_LEN(bendLinear)-1);
+  normalised = longmap(constrained, orikeys[key].hard, orikeys[key].soft, ARR_LEN(bendLinear)-1, 0);
   softTouch = (uint16_t) normalised;
 
   if (DEBUG_LEVEL > 2)
@@ -320,9 +218,10 @@ uint16_t mapSoft(uint8_t key, uint16_t filtered)
 void send(char channel[1], uint8_t key, uint8_t note, uint16_t state )
 {
   char msg_str[12];
-  sprintf(msg_str, "/%s/%d", channel, key);
-  // /d/1 0 68
-  sendOSC(msg_str, state, note);
+  sprintf(msg_str, "/%s", channel);
+  // OLD /d/1 0 68
+  // NEW /d 1 0 68
+  sendOSC(msg_str, key, state, note);
 }
 
 #endif
@@ -344,24 +243,24 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
   uint8_t midi_channel = 0;
   uint8_t attack_velocity = 127;
   uint8_t release_velocity = 0;
-
+  uint8_t touchkey;
   switch (channel[0])
   {
     case 'd':
-      if (state==1)
+      if (state>0)
       {
-        noteOn(midi_channel, key, attack_velocity);
+        noteOn(midi_channel, key, state);
         if (DEBUG_LEVEL > 1)
         {
-          debugMidi("hard on:", midi_channel, key, attack_velocity );
+          debugMidi("touch state:", midi_channel, key, state );
         }
-      } 
+      }
       if (state==0)
       {
-        noteOff(midi_channel, key, release_velocity);
+        noteOff(midi_channel, key, state);
         if (DEBUG_LEVEL > 1)
         {
-          debugMidi("hard off:", midi_channel, key, attack_velocity );
+          debugMidi("touch off:", midi_channel, key, release_velocity);
         }
       }
       break;
@@ -373,7 +272,7 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
       }
       break;
     case 't':
-      uint8_t touchkey = key + PANELCOUNT;
+      touchkey = key + PANELCOUNT;
       if (state==1)
       {
         if (DEBUG_LEVEL > 1)
@@ -392,11 +291,12 @@ void send(char channel[1], uint8_t key, uint8_t note, uint16_t state)
       }
       break;
     case 's':
+      touchkey = key + PANELCOUNT;
       if (DEBUG_LEVEL > 2)
       {
-        debugMidi("bend ctl:", midi_channel, key, state );
+        debugMidi("bend ctl:", midi_channel, touchkey, state );
       }
-      controlChange(midi_channel, key, state);
+      controlChange(midi_channel, touchkey, state);
       break;
   }
 }
@@ -435,6 +335,20 @@ void touchPlay(uint8_t key)
   // check the filtered data to decide which midiaction to take
   // action = getActionState(key, filtered);
 
+  
+  // soft touch data
+  if (touched)
+  {
+    arg_state = mapSoft(key, filtered);
+    send("s", key, note, arg_state);
+    // mode soft velocity sends velocity data for soft touch on the /d channel
+    if (mode == MODE_SOFT_VELOCITY)
+    {
+      send("d", key, note, arg_state);
+    }
+    action = 1;
+  }
+
   // using touch data
   if (released)
   {
@@ -442,19 +356,15 @@ void touchPlay(uint8_t key)
     action = 0;
   }
 
-  if (newtouch)
+  if (mode != MODE_SOFT_VELOCITY)
   {
-    send("d", key, note, 1);      // used to be t
-    action = 1;
-  }
+    if (newtouch)
+    {
+      send("d", key, note, TOUCH_HIGH);      // used to be t
+      action = 1;
+    }
+  } 
 
-  // soft touch data
-  if (touched)
-  {
-    arg_state = mapSoft(key, filtered);
-    send("s", key, note, arg_state);
-    action = 1;
-  }
 
   // update state orikeys table
   orikeys[key].state = action;
@@ -614,9 +524,9 @@ void setBendSingleKey(uint8_t key, char param[4])
     orikeys[key].bendHI = val;
   }
   #if OSC == 1
-    sprintf(chan, "/key/%s/%d", param, key);
+    sprintf(chan, "/key/%s", param);
     //Serial.println(chan);
-    sendOSC(chan, val);
+    sendOSC(chan, key, val);
   #else
     if (mode==MODE_SERIAL_DEBUG || mode==MODE_SERIAL_DEBUG_RAW)
     {
@@ -918,8 +828,8 @@ void setupMPR()
 
   void setPanelGroup(OSCMessage &msg)
   {
-    if (msg.isInt(0)) {
-      bool val = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+      bool val = getNumber(msg, 0);
       // send feedback to PD
       if (val == 1)
       {

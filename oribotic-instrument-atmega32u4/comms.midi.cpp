@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #include "instrument_config.h"
 
 #if MIDI == 1
@@ -7,6 +17,9 @@
 #include "comms.midi.h"
 #include "ORICORD.h"
 #include "music.scales.h"
+
+  void setMode(uint8_t value);
+  void setScale(uint8_t value);
 
   //------------------------------------------------------------------- IF MIDI
   void rxMIDI() {
@@ -18,24 +31,32 @@
     // if note
     uint8_t control;
     uint8_t value;
+    uint8_t channel;
     midiEventPacket_t rx;
     do {
        rx = MidiUSB.read();
         if (rx.header != 0) {
           // echo back to device
           controlChange(rx.byte1, rx.byte2, rx.byte3);
+          channel = rx.byte1 & 0x0B;
           control = rx.byte2 & 0x7F;
           value   = rx.byte3 & 0x7F;
+          Serial.print("channel: ");
+          Serial.print(channel);
+          Serial.print("\tcontrol: ");
+          Serial.print(control);
+          Serial.print("\tvalue: ");
+          Serial.println(value);
           //control = rx.byte2;
           //value   = rx.byte3;
-          Serial.print("header DEC:");
-          Serial.println(rx.header, DEC);
-          Serial.print("1 DEC:");
-          Serial.println(rx.byte1, DEC);
-          Serial.print("2 DEC:");
-          Serial.println(rx.byte2, DEC);
-          Serial.print("3 DEC:");
-          Serial.println(rx.byte3, DEC);
+          // Serial.print("header DEC:");
+          // Serial.println(rx.header, DEC);
+          // Serial.print("1 DEC:");
+          // Serial.println(rx.byte1, DEC);
+          // Serial.print("2 DEC:");
+          // Serial.println(rx.byte2, DEC);
+          // Serial.print("3 DEC:");
+          // Serial.println(rx.byte3, DEC);
           switch (control) {
             case 111:               // calibrate command
             // set Hard	  [111] 0		x
@@ -65,12 +86,12 @@
                 break;
               case 20: 
                 setBendAllKeys("loHS");  
-                Serial.println("lohs");            
+                //Serial.println("lohs");            
                 break;
              }
              break;
             case 110:               // set mode
-              mode = value;
+              setMode(value);
               controlChange(0, 110, value); // send feedback on same channel
               // Serial.println(mode);
               break;
@@ -115,8 +136,10 @@
 
   void noteOn(byte channel, byte pitch, byte velocity) {
     midiEventPacket_t midinote = {0x09, 0x90 | channel, pitch, velocity};
-    Serial.print ("midi note: ");
-    Serial.println(pitch);
+    if (DEBUG_LEVEL > 0){
+      Serial.print ("midi note: ");
+      Serial.println(pitch);
+    } 
     MidiUSB.sendMIDI(midinote);
     MidiUSB.flush();
   }
@@ -149,9 +172,22 @@
     Serial.println(note);
   }
 
+  void setMode(uint8_t value)
+  {
+    if (value > MAXMODE)
+    {
+      return;
+    }
+    mode = value;
+  }
+
   void setMIDIRoot(uint8_t newroot)
   {
-  rootNote = newroot;
+    if (newroot < 0 || newroot > 127)
+    {
+      return;
+    }
+    rootNote = newroot;
   }
 
 #if SETUP_FUNCTIONS == 1

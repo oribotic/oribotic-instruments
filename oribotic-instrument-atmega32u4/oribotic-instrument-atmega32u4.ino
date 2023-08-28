@@ -1,4 +1,14 @@
-#include "MPR121.h"
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
+#include "src/MPR121/MPR121.h"
 #include <Wire.h>
 
 // BASIC INSTRUMENT CONFIG 
@@ -102,18 +112,17 @@ void loop() {
         raw(i);
         break;
       case MODE_NORMALISED:           // 3
-        play(i);
+        touchPlay(i);
         break;
       case MODE_RAW_PLUS_NORMALISED:  // 4
-        play(i);
+        touchPlay(i);
         raw(i); 
         break;
       case MODE_TOUCH_PLAY:           // 5
+      case MODE_SOFT_VELOCITY:        // 6 has adjustments in send() for midi
         touchPlay(i);
         break;
-      case 6:                         // 6
-        soft(i);
-        break;
+
     }
   }
   #ifdef PANELGROUPS
@@ -124,6 +133,3 @@ void loop() {
   #endif  
   delay(intervaldelay);
 }
-
-
-

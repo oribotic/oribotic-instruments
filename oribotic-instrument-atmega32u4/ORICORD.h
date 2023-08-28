@@ -1,10 +1,19 @@
-
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #ifndef ORICORD_H
 #define ORICORD_H
 
 #include <stdint.h>
 #include <Arduino.h>
-#include "MPR121.h"
+#include "src/MPR121/MPR121.h"
 #include <Wire.h>
 #include "instrument_config.h"
 

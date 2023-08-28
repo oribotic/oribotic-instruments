@@ -1,7 +1,13 @@
-#include <Arduino.h>
-#include <OSCMessage.h> 
-#include "MPR121.h"
-#include "instrument_config.h"
+/*
+ * Copyright (c) 2023 Matthew Gardiner
+ *
+ * MIT License.
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+ *
+ * See https://github.com/oribotic/oribotic-instruments for documentation
+ *
+ */
 #include "ORICORD.h"
 #include "comms.osc.h"
 #include "music.scales.h"
@@ -28,10 +34,14 @@
 
 #if OSC == 1 
 
+// variant one for basic messaging to string based channels
 void sendOSC(char msg_str[20], uint16_t arg1, uint16_t arg2 = 3333)
 {
     OSCMessage msg(msg_str);
+    // add key
+    // add state
     msg.add(arg1);
+    // optionally add midi note number
     if (arg2 != 3333)
     {
       msg.add(arg2);
@@ -42,6 +52,35 @@ void sendOSC(char msg_str[20], uint16_t arg1, uint16_t arg2 = 3333)
     msg.empty();            // free space occupied by message
 }
 
+// variant two (NEW) for sending instruments messages 
+void sendOSC(char msg_str[20], uint8_t key, uint16_t arg1, uint16_t arg2 = 3333)
+{
+    OSCMessage msg(msg_str);
+    // add key
+    msg.add(key);
+    // add state
+    msg.add(arg1);
+    // optionally add midi note number
+    if (arg2 != 3333)
+    {
+      msg.add(arg2);
+    }
+    SLIPSerial.beginPacket();
+    msg.send(SLIPSerial);   // send the bytes to the SLIP stream
+    SLIPSerial.endPacket(); // mark the end of the OSC Packet
+    msg.empty();            // free space occupied by message
+}
+
+bool isNumber(OSCMessage &msg, int arg)
+{
+  return msg.isInt(arg) || msg.isFloat(arg);
+}
+
+int getNumber(OSCMessage &msg, int arg)
+{
+  return (msg.isFloat(arg) ? (int)msg.getFloat(arg) : msg.getInt(arg));
+}
+
 void dispatchGetNotes(OSCMessage &msg)
 {
     getNotes();
@@ -50,21 +89,23 @@ void dispatchGetNotes(OSCMessage &msg)
 void getNotes()
 {
     int note;
-    char chan[10];
     for (int i = 0; i < PINCOUNT; i++)
     {
       note = orikeys[i].note + rootNote;
-      sprintf(chan, "/n/%d", i);
-      sendOSC(chan, note);
+      sendOSC("/n", (uint8_t)i, note);
       delay(20);
     }
 }
 
 void setRoot(OSCMessage &msg)
 {
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
+      if (val < 0 || val > 127)
+      {
+        return;
+      }
       rootNote = val;
       // send feedback to PD
       sendOSC("/set/root", val);
@@ -74,19 +115,25 @@ void setRoot(OSCMessage &msg)
 
 void setScale(OSCMessage &msg)
 {
-  if (msg.isInt(0))
+  if (isNumber(msg, 0))
   {
-    uint8_t val = msg.getInt(0);
-    changeScale(val);
+    int val = getNumber(msg, 0);
+    val = changeScale((uint8_t)val);
+    // send feedback to PD
+    sendOSC("/set/scale", val);
   }
 }
 
 void setMode(OSCMessage &msg)
 {
     sendOSC("/set/mode", 0);
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
+      if( val < 0 || val > MAXMODE)
+      {
+        return;
+      }
       mode = val;
       // send feedback to PD
       sendOSC("/set/mode", val);
@@ -106,12 +153,12 @@ void setKeyProp(OSCMessage &msg, char param[4])
     uint8_t key;
     uint16_t val;
     char chan[16];
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      key = msg.getInt(0);
-      if (msg.isInt(1))
+      key = getNumber(msg, 0);
+      if (isNumber(msg, 1))
       {
-        val = msg.getInt(1);
+        val = getNumber(msg, 1);
       }
       else
       {
@@ -200,9 +247,9 @@ void rxOSC()
 
 void setSFIFilter(OSCMessage &msg)
 {
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
       switch (val)
       {
         case 0:
@@ -224,9 +271,9 @@ void setSFIFilter(OSCMessage &msg)
 
 void setFFIFilter(OSCMessage &msg)
 {
-    if (msg.isInt(0))
+    if (isNumber(msg, 0))
     {
-      int val = msg.getInt(0);
+      int val = getNumber(msg, 0);
       switch (val)
       {
         case 0:
@@ -250,8 +297,8 @@ void setCDT (OSCMessage &msg)
 {
     mpr121_CDT_t cdt;
     uint8_t size;
-    if (msg.isInt(0)) {
-    size = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+    size = getNumber(msg, 0);
     sendOSC("/filter/CDT", size);
     }
     if (size == 0)
@@ -302,8 +349,8 @@ void setInterval (OSCMessage &msg)
 {
     mpr121_sample_interval_t interval;
     uint8_t size;
-    if (msg.isInt(0)) {
-        size = msg.getInt(0);
+    if (isNumber(msg, 0)) {
+        size = getNumber(msg, 0);
         sendOSC("/set/interval", size);
     }
     if (size == 1)

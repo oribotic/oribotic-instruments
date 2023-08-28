@@ -1,0 +1,13 @@
+0.3.0: 2023 Aug 25
+
+* added oi.o.instrument midi output range option, default is 0-255
+
+0.2.0: 2023 Aug 24
+
+* added support for multiple MIDI devices via settable channel creation arg in
+  oi.m.instrument, oi.m.control, & oi.m.panel
+* added oi.m.routechan helper
+
+0.1.0: 2023 Aug 23
+
+initial alpha
