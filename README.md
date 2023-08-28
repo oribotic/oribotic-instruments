@@ -9,7 +9,7 @@ Copyright (c) 2023 Matthew Gardiner
 
 MIT License
 
-Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox https://danomatika.com, Alexandre Bezri, Anna Oelsch
+Software, hardware and instrument build contributions from: Simon Schmid, [Dan Wilcox](https://danomatika.com), Alexandre Bezri, Anna Oelsch
 
 Description
 -----------
@@ -47,16 +47,15 @@ As the instrument can be folded in an open-ended manner, calibration is required
 
 ### Puredata
 
+![oi.m.instrument screenshot](puredata-screenshot.png)
+
 An abstraction library and various templates and examples are provided both for the open-source [Puredata](https://puredata.info) computer music environment. 
 
 Attribution
 -----------
 
-Funded through the FWF Austrian Science Fund, PEEK Program, ORI*botics on the art and science of origami and robotics https://orilab.art
-Thank you to the Ars Electronica Futurelab https://ars.electronica.art/futurelab/
+Funded through the FWF Austrian Science Fund, PEEK Program, ORI\*botics on the art and science of origami and robotics https://orilab.art  
+Thank you to the Ars Electronica Futurelab https://ars.electronica.art/futurelab/  
 Thank you to [Josh Gardiner](https://github.com/NeuralSpaz) for pcb reviews and for being an awesome bro!
 
-
 ![attribution logos](https://github.com/oribotic/oribotic-instruments/assets/6670535/1b0b8847-12c4-4f32-a9cf-da88fbb42927)
-
-
