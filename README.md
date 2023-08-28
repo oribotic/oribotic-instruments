@@ -47,7 +47,7 @@ As the instrument can be folded in an open-ended manner, calibration is required
 
 ### Puredata
 
-![oi.m.instrument screenshot](puredata-screenshot.png)
+![oi.m.instrument screenshot](images/puredata-screenshot.png)
 
 An abstraction library and various templates and examples are provided both for the open-source [Puredata](https://puredata.info) computer music environment. 
 
