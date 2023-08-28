@@ -1,4 +1,4 @@
-0.2.0: 2023 Aug 25
+0.2.0: 2023 Aug 28
 
 firmware
 * fixed: a couple build errors

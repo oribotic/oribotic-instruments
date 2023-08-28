@@ -1,6 +1,6 @@
-#N canvas 63 88 355 305 12;
-#X obj 50 29 inlet;
-#X obj 50 259 outlet;
+#N canvas 63 88 324 328 12;
+#X obj 40 49 inlet;
+#X obj 40 279 outlet;
 #N canvas 92 117 319 307 check 0;
 #X obj 56 98 pdcontrol;
 #X msg 56 60 args 0;
@@ -15,7 +15,7 @@
 #X connect 3 0 6 0;
 #X connect 4 2 3 0;
 #X connect 6 0 5 0;
-#X restore 211 30 pd check arg;
+#X restore 201 50 pd check arg;
 #N canvas 551 348 494 270 calibrate 0;
 #X obj 39 23 inlet;
 #N canvas 318 343 277 429 setKey 0;
@@ -73,7 +73,7 @@
 #X connect 8 5 6 0;
 #X connect 8 6 6 0;
 #X connect 8 7 7 0;
-#X restore 102 140 pd calibrate;
+#X restore 92 160 pd calibrate;
 #N canvas 150 175 322 261 mode 0;
 #X obj 35 22 inlet;
 #X obj 35 107 route float;
@@ -86,9 +86,9 @@
 #X connect 2 0 3 0;
 #X connect 4 0 1 0;
 #X connect 4 1 5 0;
-#X restore 183 181 pd mode;
-#X msg 50 181 /calibrate;
-#X obj 50 72 route calibrate set get;
+#X restore 173 201 pd mode;
+#X msg 40 201 /calibrate;
+#X obj 40 92 route calibrate set get;
 #N canvas 208 233 287 304 notes 0;
 #X obj 36 26 inlet;
 #X msg 36 174 /setRoot \$1;
@@ -104,7 +104,7 @@
 #X connect 4 1 6 0;
 #X connect 5 0 1 0;
 #X connect 6 0 2 0;
-#X restore 229 215 pd notes;
+#X restore 219 235 pd notes;
 #N canvas 266 541 294 212 notes 0;
 #X obj 38 56 route notes;
 #X msg 38 90 /getNotes;
@@ -113,7 +113,15 @@
 #X connect 0 0 1 0;
 #X connect 1 0 3 0;
 #X connect 2 0 0 0;
-#X restore 155 107 pd notes;
+#X restore 145 127 pd notes;
+#N canvas 172 83 546 380 LICENSE-GPL 0;
+#X text 57 80 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation \, either version 3 of the License \, or (at your option) any later version.;
+#X text 57 172 This program is distributed in the hope that it will be useful \, but WITHOUT ANY WARRANTY \; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.;
+#X text 57 264 You should have received a copy of the GNU General Public License along with this program. If not \, see <http://www.gnu.org/licenses/>.;
+#X text 57 328 See the file LICENSE.txt for the full license text.;
+#X text 57 30 Copyright (C) 2023 Dan Wilcox \, Matthew Gardiner \, Oribotic Instruments team;
+#X restore 176 279 pd LICENSE-GPL;
+#X text 39 15 args: maxpanels;
 #X connect 0 0 6 0;
 #X connect 3 0 1 0;
 #X connect 3 1 4 0;

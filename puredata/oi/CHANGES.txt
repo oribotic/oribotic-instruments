@@ -1,6 +1,7 @@
-0.3.0: 2023 Aug 25
+0.3.0: 2023 Aug 28
 
 * added oi.o.instrument midi output range option, default is 0-255
+* now licensed under GPLv3
 
 0.2.0: 2023 Aug 24
 
