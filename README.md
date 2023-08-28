@@ -1,20 +1,26 @@
 Oribotic Instruments
 ====================
 
-_One line blurb for this project._
+_Why wait for a Holtzman drive to fold space when you can start folding sound, now!_
 
-_Maybe a smaller logo or image_.
+Oribotic Instruments are multi-modal capacitive sensing instruments. They afford keypad style touch, pressure sensitive "soft touch" and capacitive sensing between electrode panels (rigid PCBs on flexible substrates such as textiles) otherwise known as _Fold Sensing_.
 
 Copyright (c) 2023 Matthew Gardiner
 
 MIT License
 
+Software, hardware and instrument build contributions from: Simon Schmid, Dan Wilcox https://danomatika.com, Alexandre Bezri, Anna Oelsch
+
 Description
 -----------
 
-_Maybe a good picture._
+![oribotic instruments](images/oricordion-in-hand-oribotic-instrumentsmatthew-gardiner_2000x1000.webp)
 
-Abstract or project paragraph or two. Not too much but longer than a blurb...
+Our question for this work, What happens to our experience of space when we fold sound? is situated in our research into fundamental artistic methods for origami and robotics, following our central theme of Fold Sensing. Our conceptual approach is to invent foldable musical spaces rather than linear musical scores. The performer can explore the musical volume using choreographed folding paths and geometric gestures. 
+
+Technically, oribotic instruments are layered electronics and textiles. The main elements are a capacitive sensor array from printed circuit board electrodes crafted as kinetic origami structures. The fold angles are captured in real-time and conveyed through a normalisation algorithm that adjusts for the non-linear capacitive response to the fold angle. These parametrised folded structures offer new affordances to interact, play and perform by contracting and expanding the fold geometry.
+
+![oribotic instruments multi-modal interations](images/multi-modal-composite@4x.png)
 
 Structure
 ---------
@@ -25,7 +31,7 @@ Structure
 Installation & Build
 --------------------
 
-For info on building and configuring the Ardunio firmware, see `oribotic-instrument-atmega32u4/README.md`
+For info on building and configuring the Arduino firmware, see `oribotic-instrument-atmega32u4/README.md`
 
 Usage
 -----
@@ -35,7 +41,7 @@ Communication of the instrument with host systems is either via OSC (Open Sound 
 Each foldable instrument is composed of a number of panels (8, 12, or 48) which are capcitively touch-sensitive and send the following for each panel in realtime:
 * digital touch: on/off touch events
 * bend: bend amount to the adjacent panel between unfolded and folded states (requires calibration)
-* soft touch: amount of capcitive touch (think proximity and area/size)
+* soft touch: amount of capacitive touch (think proximity and area/size)
 
 As the instrument can be folded in an open-ended manner, calibration is required to send the bend low and high states: folded and unfolded, respectively. For instance, an 8 panel instrument could be folded in half, crosswise, in an origami pattern, etc the user only needs to tell the instrument when it is folded and unfolded. Panel bend values are then scaled to match.
 
@@ -46,6 +52,11 @@ An abstraction library and various templates and examples are provided both for 
 Attribution
 -----------
 
-This project is supported by a grant from ...
+Funded through the FWF Austrian Science Fund, PEEK Program, ORI*botics on the art and science of origami and robotics https://orilab.art
+Thank you to the Ars Electronica Futurelab https://ars.electronica.art/futurelab/
+Thank you to [Josh Gardiner](https://github.com/NeuralSpaz) for pcb reviews and for being an awesome bro!
 
-_Funding footer image set here?_
+
+![attribution logos](https://github.com/oribotic/oribotic-instruments/assets/6670535/1b0b8847-12c4-4f32-a9cf-da88fbb42927)
+
+
