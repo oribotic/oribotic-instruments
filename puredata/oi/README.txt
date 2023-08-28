@@ -1,6 +1,15 @@
 oi abstraction library
 ======================
 
+Oribotic foldable instrument Puredata abstractions
+
+Copyright (C) 2023 Dan Wilcox, Matthew Gardiner, Oribotic Instruments team
+
+GNU GPL Version 3
+
+Description
+-----------
+
 The oi abstraction library is provided to wrap communication with Oribotic instruments, either over OSC via a serial port (desktop only) or MIDI (desktop and mobile). The main high-level abstractions are:
 
 * oi.o.instrument: N-panel instrument serial OSC receiver, output range 0-255

@@ -29,6 +29,13 @@
 #X restore 216 162 pd oscformat;
 #X obj 51 340 list trim;
 #X obj 51 303 oscparse;
+#N canvas 172 83 546 380 LICENSE-GPL 0;
+#X text 57 80 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation \, either version 3 of the License \, or (at your option) any later version.;
+#X text 57 172 This program is distributed in the hope that it will be useful \, but WITHOUT ANY WARRANTY \; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.;
+#X text 57 264 You should have received a copy of the GNU General Public License along with this program. If not \, see <http://www.gnu.org/licenses/>.;
+#X text 57 328 See the file LICENSE.txt for the full license text.;
+#X text 57 30 Copyright (C) 2023 Dan Wilcox \, Matthew Gardiner \, Oribotic Instruments team;
+#X restore 243 375 pd LICENSE-GPL;
 #X connect 0 0 6 0;
 #X connect 2 0 8 0;
 #X connect 3 0 8 0;
