@@ -1,4 +1,4 @@
-#N canvas 34 78 1651 903 12;
+#N canvas 76 129 1462 885 12;
 #X declare -path ../oi/;
 #X declare -path ./lib/;
 #X text 966 527 midi ports \; preferences > midi \; start your synths first use multiple output devices an;
@@ -505,7 +505,7 @@
 #X obj 1143 607 bng 19 250 50 0 setmix5 empty 5 25 12 0 12 #00ff04 #000000 #000000;
 #X obj 1184 607 bng 19 250 50 0 setmix6 empty 6 25 12 0 12 #00ff04 #000000 #000000;
 #X obj 1227 200 bng 19 250 50 0 setmode6 empty 6\ SOFT\ VELOCITY 25 11 0 12 #00faff #000000 #000000;
-#N canvas 34 78 1651 903 setmix 1;
+#N canvas 34 72 500 372 setmix 0;
 #X msg 71 227 1;
 #X msg 111 227 2;
 #X msg 151 227 3;
@@ -552,14 +552,14 @@
 #X connect 8 0 1 0;
 #X restore 1380 111 pd graph;
 #X obj 1380 89 lib/samples;
-#X obj 260 39 l 1 \$0-oi;
+#X obj 256 37 l 1 \$0-oi;
 #X obj 73 225 l 2 \$0-oi;
 #X obj 257 225 l 3 \$0-oi;
 #X obj 258 643 l 7 \$0-oi;
 #X obj 74 643 l 6 \$0-oi;
 #X obj 259 431 l 5 \$0-oi;
 #X obj 75 431 l 4 \$0-oi;
-#X obj 77 39 l 0 \$0-oi;
+#X obj 73 37 l 0 \$0-oi;
 #X obj 588 402 mix, f 20;
 #X obj 163 222 volume;
 #X obj 346 223 volume;
@@ -569,7 +569,7 @@
 #X obj 160 827 volume;
 #X obj 345 615 volume;
 #X obj 161 615 volume;
-#N canvas 34 78 1651 903 oribotic.instrument.midi 1;
+#N canvas 34 72 500 372 oribotic.instrument.midi 0;
 #X obj 88 56 r calibrate;
 #X msg 88 79 calibrate;
 #X obj 179 56 r belo;
@@ -670,7 +670,7 @@
 #X obj 506 112 l 8 \$0-oi;
 #X obj 1380 23 declare -path ../oi/;
 #X obj 1380 45 declare -path ./lib/;
-#N canvas 34 78 1651 903 nextmix 1;
+#N canvas 34 72 500 372 nextmix 0;
 #X obj 323 214 + 1;
 #X obj 322 463 s setmix1;
 #X obj 322 416 select 1 2 3 4 5 6;
