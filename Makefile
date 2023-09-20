@@ -1,5 +1,5 @@
 
-.PHONY: oi.-zip
+.PHONY: oi-zip
 
 ##### oi puredata abstraction library
 
