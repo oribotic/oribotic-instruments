@@ -726,13 +726,18 @@ bool MPR121_t::autoSetElectrodes(uint16_t VCC_mV, bool fixedChargeTime){
   setRegister(MPR121_LSL, LSL);
 
   // don't enable retry, copy other settings from elsewhere
-  setRegister(MPR121_ACCR0, 1 | ((ECR_backup & 0xC0) >> 4) | (getRegister(MPR121_AFE1) & 0xC0)); 
+  // setRegister(MPR121_ACCR0, 1 | ((ECR_backup & 0xC0) >> 4) | (getRegister(MPR121_AFE1) & 0xC0));
+  // enable retry, copy other settings from elsewhere
+  setRegister(MPR121_ACCR0, 0x31 | ((ECR_backup & 0xC0) >> 4) | (getRegister(MPR121_AFE1) & 0xC0)); 
   // fixed charge time is useful for designs with higher lead-in resistance - e.g. using Bare Electric Paint
   setRegister(MPR121_ACCR1, fixedChargeTime ? 1 << 7 : 0); 
 
   if(wasRunning){
     run();
   }
+
+  // wait a bit before reading back the out or range register
+  delayMicroseconds(10);
 
   return(!(getRegister(MPR121_OORS2) & 0xC0));
 }
